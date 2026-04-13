@@ -4,16 +4,31 @@ import { CaseStudies } from "@/components/sections/case-studies";
 import { About } from "@/components/sections/about";
 import { Faq } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
+import { faqPageSchema, webPageSchema } from "@/lib/schemas";
 
 export default function Home() {
   return (
-    <main id="main-content">
-      <Hero />
-      <Services />
-      <CaseStudies />
-      <About />
-      <Faq />
-      <Contact />
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqPageSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webPageSchema),
+        }}
+      />
+      <main id="main-content">
+        <Hero />
+        <Services />
+        <CaseStudies />
+        <About />
+        <Faq />
+        <Contact />
+      </main>
+    </>
   );
 }
