@@ -1,4 +1,5 @@
 import { Mail } from "lucide-react";
+import { ContactForm } from "@/components/contact-form";
 
 export function Contact() {
   return (
@@ -14,14 +15,11 @@ export function Contact() {
           </p>
         </div>
 
-        {/* Contact form placeholder — built in Phase 4 */}
-        <div className="mt-12 rounded-xl border border-border/50 bg-card p-8">
-          <p className="text-center text-muted-foreground">
-            Contact form coming soon.
-          </p>
+        <div className="relative mt-12 rounded-xl border border-border/50 bg-card p-6 sm:p-8">
+          <ContactForm />
         </div>
 
-        <div className="mt-8 text-center">
+        <div className="mt-8 flex flex-col items-center gap-4 text-center">
           <p className="text-sm text-muted-foreground">
             Or email directly:{" "}
             <a
@@ -31,6 +29,9 @@ export function Contact() {
               <Mail className="h-4 w-4" />
               jack@rethinkaiconsult.com
             </a>
+          </p>
+          <p className="text-xs text-muted-foreground/60">
+            Prefer a call? We&apos;ll set one up after your initial message.
           </p>
         </div>
       </div>
