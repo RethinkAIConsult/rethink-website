@@ -1,0 +1,16 @@
+{
+  "name": "RethinkAI Consult",
+  "short_name": "RethinkAI",
+  "description": "AI Automation Engineering",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0F",
+  "theme_color": "#0A0A0F",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

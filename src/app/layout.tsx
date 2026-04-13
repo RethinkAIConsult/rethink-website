@@ -65,6 +65,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://rethinkaiconsult.com",
   },
+  manifest: "/manifest.json",
+  other: {
+    "theme-color": "#0A0A0F",
+  },
 };
 
 export default function RootLayout({
