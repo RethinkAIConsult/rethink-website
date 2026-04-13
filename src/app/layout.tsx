@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { SkipToContent } from "@/components/layout/skip-to-content";
 import "./globals.css";
 
 const inter = Inter({
@@ -26,7 +29,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        <SkipToContent />
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
