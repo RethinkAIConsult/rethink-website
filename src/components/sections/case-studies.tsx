@@ -1,26 +1,29 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { FadeIn } from "@/components/fade-in";
 import { CASE_STUDIES } from "@/lib/data";
 
 export function CaseStudies() {
   return (
     <section id="work" className="border-t border-border/50 py-24" aria-labelledby="work-heading">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
-          <h2 id="work-heading" className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Our Work
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Real projects, real results. Every engagement is an end-to-end build —
-            from architecture through to production deployment and ongoing support.
-          </p>
-        </div>
+        <FadeIn>
+          <div className="max-w-2xl">
+            <h2 id="work-heading" className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Our Work
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Real projects, real results. Every engagement is an end-to-end build —
+              from architecture through to production deployment and ongoing support.
+            </p>
+          </div>
+        </FadeIn>
 
         <div className="mt-16 grid gap-6 lg:grid-cols-3">
-          {CASE_STUDIES.map((study) => (
+          {CASE_STUDIES.map((study, i) => (
+            <FadeIn key={study.title} delay={i * 0.1}>
             <Card
-              key={study.title}
-              className="group border-border/50 bg-card transition-colors hover:border-primary/30"
+              className="group h-full border-border/50 bg-card transition-colors hover:border-primary/30"
             >
               {/* Decorative header bar */}
               <div className="h-1.5 rounded-t-lg bg-gradient-to-r from-primary to-accent" />
@@ -60,6 +63,7 @@ export function CaseStudies() {
                 </ul>
               </CardContent>
             </Card>
+            </FadeIn>
           ))}
         </div>
       </div>

@@ -1,28 +1,31 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { FadeIn } from "@/components/fade-in";
 import { SERVICES } from "@/lib/data";
 
 export function Services() {
   return (
     <section id="services" className="border-t border-border/50 py-24" aria-labelledby="services-heading">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
-          <h2 id="services-heading" className="text-3xl font-bold tracking-tight sm:text-4xl">
-            What We Build
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Every engagement starts with understanding your operations and ends
-            with systems that run without you. Here&apos;s what we deliver.
-          </p>
-        </div>
+        <FadeIn>
+          <div className="max-w-2xl">
+            <h2 id="services-heading" className="text-3xl font-bold tracking-tight sm:text-4xl">
+              What We Build
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Every engagement starts with understanding your operations and ends
+              with systems that run without you. Here&apos;s what we deliver.
+            </p>
+          </div>
+        </FadeIn>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2">
-          {SERVICES.map((service) => {
+          {SERVICES.map((service, i) => {
             const Icon = service.icon;
             return (
+              <FadeIn key={service.title} delay={i * 0.1}>
               <Card
-                key={service.title}
-                className="group border-border/50 bg-card transition-colors hover:border-primary/30"
+                className="group h-full border-border/50 bg-card transition-colors hover:border-primary/30"
               >
                 <CardHeader>
                   <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
@@ -66,6 +69,7 @@ export function Services() {
                   </div>
                 </CardContent>
               </Card>
+              </FadeIn>
             );
           })}
         </div>
