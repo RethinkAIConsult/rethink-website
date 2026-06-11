@@ -40,7 +40,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const body = await req.json();
     const { name, email, company, budget, message, referral, website } = body;
 
-    // Honeypot — bots fill hidden fields
+    // Honeypot, bots fill hidden fields
     if (website) {
       return NextResponse.json({ ok: true });
     }
@@ -94,7 +94,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       resend.emails.send({
         from: `RethinkAI Consult <${fromEmail}>`,
         to: cleanEmail,
-        subject: "We've received your message — RethinkAI",
+        subject: "Thanks for getting in touch with RethinkAI",
         react: ContactConfirmation({ name: cleanName }),
       }),
     ]);

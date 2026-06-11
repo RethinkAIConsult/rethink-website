@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!--
+    RETHOUGHT R  —  concept-shift-r.svg
+    ─────────────────────────────────────
+    A bold geometric R whose diagonal leg is detached and pivoted
+    a few degrees outward from its natural bowl junction. A #2563EB
+    square marks the pivot — the letter literally re-thought.
+
+    Grid: 8px base unit. Working area: 4–60. No strokes.
+    All widths ≥ 8px for 16px favicon legibility.
+    Two colors only: currentColor + #2563EB.
+  -->
+
+  <!--
+    ── R BODY  (stem + bowl ring) ───────────────────────────────────
+    Constructed as a compound path with fill-rule="evenodd" so the
+    inner counter of the bowl is transparent (shows the background).
+
+    Outer boundary  (clockwise):
+      Start top-left of stem: (8, 4)
+      → top-right of full width: (48, 4)
+      → curve around bump top-right corner (r=4): cubic to (52, 8)
+      → down right edge of bump: (52, 28)
+      → curve around bump bottom-right (r=4): cubic to (48, 32)
+      → across bowl bottom to right edge of mid-ledge: stays at y=32
+        but we need to also include the ledge thickness (8px) so the
+        ledge runs y=32–40
+      The outer contour wraps the FULL right side of the R:
+        top bar thickness = 8 (y 4–12)
+        bump right wall at x=52
+        bump bottom at y=32, ledge bottom at y=40
+        stem right at x=16
+
+    Full outer path:
+      (8,4) → (48,4) → arc corner → (52,8) → (52,28) → arc corner
+      → (48,32) → (16,32) [bowl bottom, inner surface]
+      — wait, this gives the inner floor, not the outer ledge.
+
+    Simpler: draw the R as three filled rectangles + a filled arc ring
+    for the bump, with a compound path to subtract the counter.
+
+    REVISED: use a single compound even-odd path.
+
+    OUTER silhouette (the full R shape as if it were solid):
+      8,4 → 48,4 → C52,4 56,8 56,16 → 56,24 → C56,32 52,36 48,36
+      → 16,36 → 16,60 → 8,60 → close
+
+    INNER counter (subtracts to open up the bowl):
+      Goes COUNTER-CLOCKWISE so evenodd fills only the ring.
+      16,12 → 16,28 → 44,28 → C47,28 48,26 48,24
+      → 48,16 → C48,14 47,12 44,12 → close
+  -->
+  <path
+    fill-rule="evenodd"
+    fill="currentColor"
+    d="
+      M 8 4
+      L 48 4
+      C 52 4 56 8 56 16
+      L 56 24
+      C 56 32 52 36 48 36
+      L 16 36
+      L 16 60
+      L 8 60
+      Z
+
+      M 16 12
+      L 44 12
+      C 47 12 48 14 48 16
+      L 48 24
+      C 48 26 47 28 44 28
+      L 16 28
+      Z
+    "
+  />
+
+  <!--
+    ── DETACHED LEG ─────────────────────────────────────────────────
+    Normal leg would start at the bowl junction ~(40, 36) and run
+    diagonally to lower-right. The detached leg is:
+      • shifted 4px right → pivot at (44, 40) instead of (40, 36)
+      • this produces a visible gap at the junction (pivot square covers it)
+      • rotated ~5° clockwise relative to natural angle
+
+    Leg centerline: pivot (44, 40) → foot (58, 60)
+    Direction: (14, 20), magnitude ≈ 24.4
+    Perpendicular unit (normalize(-20,14)): ≈(-0.82, 0.57)
+    Half-width = 4 → offset ≈ (3.3, 2.3) → use (3, 2) for clean coords
+
+    Quad corners:
+      top-left:     44 - 3 = 41,  40 + 2 = 42  →  (41, 42)
+      top-right:    44 + 3 = 47,  40 - 2 = 38  →  (47, 38)
+      bottom-right: 58 + 3 = 61,  60 - 2 = 58  →  clip x to 60: (60, 57)
+      bottom-left:  58 - 3 = 55,  60 + 2 = 62  →  clip y to 60: (55, 60)
+  -->
+  <path
+    fill="currentColor"
+    d="M 41 42 L 47 38 L 60 57 L 55 60 Z"
+  />
+
+  <!--
+    ── PIVOT ACCENT SQUARE ──────────────────────────────────────────
+    8×8, centered on (44, 40): x=40–48, y=36–44.
+    Sits exactly at the gap between bowl edge (y=36) and leg top (y=38),
+    bridging the displacement. At 16px it reads as a bold colored dot.
+  -->
+  <rect x="40" y="36" width="8" height="8" fill="#2563EB" />
+
+</svg>

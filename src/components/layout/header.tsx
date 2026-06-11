@@ -8,10 +8,14 @@ import {
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Logo } from "@/components/logo";
+import { ArrowLink } from "@/components/arrow-link";
 
 const NAV_ITEMS = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
+  { label: "Stack", href: "#stack" },
   { label: "About", href: "#about" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
@@ -72,23 +76,24 @@ export function Header() {
       }`}
     >
       <nav
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8"
+        className="mx-auto flex h-16 max-w-none items-center justify-between px-4 sm:px-6 lg:px-8"
         aria-label="Main navigation"
       >
         <a
           href="#hero"
-          className="text-lg font-bold tracking-tight transition-colors hover:text-primary"
+          className="transition-opacity hover:opacity-80"
+          aria-label="RethinkAI, back to top"
         >
-          Rethink<span className="text-primary">AI</span>
+          <Logo />
         </a>
 
         {/* Desktop nav */}
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-5 md:flex">
           {NAV_ITEMS.map((item) => (
             <li key={item.href}>
               <a
                 href={item.href}
-                className={`rounded-md px-3 py-2 text-sm font-medium transition-colors hover:text-foreground ${
+                className={`font-mono text-xs uppercase tracking-[0.12em] transition-colors duration-200 hover:text-foreground ${
                   activeSection === item.href.slice(1)
                     ? "text-foreground"
                     : "text-muted-foreground"
@@ -99,49 +104,76 @@ export function Header() {
             </li>
           ))}
           <li>
+            <ThemeToggle className="ml-1" />
+          </li>
+          <li>
+            <ArrowLink href="/assessment" tone="default" className="font-mono text-xs uppercase tracking-[0.12em]">
+              Free assessment
+            </ArrowLink>
+          </li>
+          <li>
             <a
               href="#contact"
-              className="ml-2 inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-[#1D4ED8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              Get in Touch
+              Get in touch
             </a>
           </li>
         </ul>
 
-        {/* Mobile nav */}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:hidden"
-            aria-label="Open menu"
-          >
-            <Menu className="h-5 w-5" />
-          </SheetTrigger>
-          <SheetContent side="right" className="w-72 bg-background" showCloseButton={false}>
-            <SheetTitle className="sr-only">Navigation menu</SheetTitle>
-            <div className="p-4">
-              <span className="text-lg font-bold tracking-tight">
-                Rethink<span className="text-primary">AI</span>
-              </span>
-            </div>
-            <ul className="flex flex-col gap-2 px-4">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.href}>
+        {/* Mobile controls */}
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:hidden"
+              aria-label="Open menu"
+            >
+              <Menu className="h-5 w-5" />
+            </SheetTrigger>
+            <SheetContent side="right" className="w-72 bg-background" showCloseButton={false}>
+              <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+              <div className="p-4">
+                <Logo />
+              </div>
+              <ul className="flex flex-col gap-2 px-4">
+                {NAV_ITEMS.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      onClick={handleNavClick}
+                      className={`block px-3 py-2 font-mono text-sm uppercase tracking-[0.12em] transition-colors duration-200 hover:text-foreground ${
+                        activeSection === item.href.slice(1)
+                          ? "text-foreground"
+                          : "text-muted-foreground"
+                      }`}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+                <li className="mt-1 border-t border-border pt-2">
                   <a
-                    href={item.href}
+                    href="/assessment"
                     onClick={handleNavClick}
-                    className={`block rounded-md px-3 py-2 text-base font-medium transition-colors hover:bg-secondary hover:text-foreground ${
-                      activeSection === item.href.slice(1)
-                        ? "text-foreground"
-                        : "text-muted-foreground"
-                    }`}
+                    className="block px-3 py-2 font-mono text-sm uppercase tracking-[0.12em] text-muted-foreground transition-colors duration-200 hover:text-foreground"
                   >
-                    {item.label}
+                    Free assessment
                   </a>
                 </li>
-              ))}
-            </ul>
-          </SheetContent>
-        </Sheet>
+                <li>
+                  <a
+                    href="#contact"
+                    onClick={handleNavClick}
+                    className="mt-1 block rounded-md bg-primary px-3 py-2 text-center text-sm font-medium text-primary-foreground transition-colors hover:bg-[#1D4ED8]"
+                  >
+                    Get in touch
+                  </a>
+                </li>
+              </ul>
+            </SheetContent>
+          </Sheet>
+        </div>
       </nav>
     </header>
   );

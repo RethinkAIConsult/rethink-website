@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- RethinkAI favicon: dark tile, white "Rethought R" mark, blue pivot -->
+  <rect width="64" height="64" rx="14" fill="#0D1117"/>
+  <g transform="translate(9.6, 9.6) scale(0.7)">
+    <path
+      fill-rule="evenodd"
+      fill="#FFFFFF"
+      d="M 8 4 L 48 4 C 52 4 56 8 56 16 L 56 24 C 56 32 52 36 48 36 L 16 36 L 16 60 L 8 60 Z M 16 12 L 44 12 C 47 12 48 14 48 16 L 48 24 C 48 26 47 28 44 28 L 16 28 Z"
+    />
+    <path fill="#FFFFFF" d="M 41 42 L 47 38 L 60 57 L 55 60 Z"/>
+    <rect x="40" y="36" width="8" height="8" fill="#2563EB"/>
+  </g>
+</svg>

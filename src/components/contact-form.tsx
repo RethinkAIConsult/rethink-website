@@ -2,17 +2,14 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import type { ContactFormData, ContactFormState } from "@/types";
 
 const BUDGET_OPTIONS = [
   { value: "", label: "Select a range (optional)" },
   { value: "under-5k", label: "Under £5,000" },
-  { value: "5k-15k", label: "£5,000 – £15,000" },
-  { value: "15k-50k", label: "£15,000 – £50,000" },
+  { value: "5k-15k", label: "£5,000 to £15,000" },
+  { value: "15k-50k", label: "£15,000 to £50,000" },
   { value: "50k-plus", label: "£50,000+" },
 ] as const;
 
@@ -34,6 +31,15 @@ const INITIAL_FORM: ContactFormData = {
   referral: "",
   website: "",
 };
+
+const labelClass =
+  "block font-mono text-xs uppercase tracking-widest text-muted-foreground mb-1.5";
+
+const inputClass =
+  "flex h-11 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-primary";
+
+const selectClass =
+  "flex h-11 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-primary";
 
 export function ContactForm() {
   const [form, setForm] = useState<ContactFormData>(INITIAL_FORM);
@@ -93,7 +99,7 @@ export function ContactForm() {
 
       setState({ status: "success", message: "" });
       setForm(INITIAL_FORM);
-      toast.success("Message sent! We'll get back to you within 24 hours.");
+      toast.success("Message sent. We will get back to you within 24 hours.");
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "Something went wrong";
@@ -104,7 +110,7 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-      {/* Honeypot — hidden from real users */}
+      {/* Honeypot, hidden from real users */}
       <div className="absolute -left-[9999px]" aria-hidden="true" tabIndex={-1}>
         <label htmlFor="website">Website</label>
         <input
@@ -119,12 +125,13 @@ export function ContactForm() {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="name">
+        <div>
+          <label htmlFor="name" className={labelClass}>
             Name <span className="text-destructive">*</span>
-          </Label>
-          <Input
+          </label>
+          <input
             id="name"
+            className={inputClass}
             value={form.name}
             onChange={(e) => updateField("name", e.target.value)}
             placeholder="Your name"
@@ -132,19 +139,20 @@ export function ContactForm() {
             aria-describedby={errors.name ? "name-error" : undefined}
           />
           {errors.name && (
-            <p id="name-error" className="text-sm text-destructive" role="alert">
+            <p id="name-error" className="mt-1.5 text-xs text-destructive" role="alert">
               {errors.name}
             </p>
           )}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="email">
+        <div>
+          <label htmlFor="email" className={labelClass}>
             Email <span className="text-destructive">*</span>
-          </Label>
-          <Input
+          </label>
+          <input
             id="email"
             type="email"
+            className={inputClass}
             value={form.email}
             onChange={(e) => updateField("email", e.target.value)}
             placeholder="you@company.com"
@@ -152,7 +160,7 @@ export function ContactForm() {
             aria-describedby={errors.email ? "email-error" : undefined}
           />
           {errors.email && (
-            <p id="email-error" className="text-sm text-destructive" role="alert">
+            <p id="email-error" className="mt-1.5 text-xs text-destructive" role="alert">
               {errors.email}
             </p>
           )}
@@ -160,23 +168,28 @@ export function ContactForm() {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="company">Company</Label>
-          <Input
+        <div>
+          <label htmlFor="company" className={labelClass}>
+            Company
+          </label>
+          <input
             id="company"
+            className={inputClass}
             value={form.company}
             onChange={(e) => updateField("company", e.target.value)}
-            placeholder="Your company (optional)"
+            placeholder="Optional"
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="budget">Budget Range</Label>
+        <div>
+          <label htmlFor="budget" className={labelClass}>
+            Budget Range
+          </label>
           <select
             id="budget"
             value={form.budget}
             onChange={(e) => updateField("budget", e.target.value)}
-            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className={selectClass}
           >
             {BUDGET_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value} className="bg-card text-foreground">
@@ -187,33 +200,36 @@ export function ContactForm() {
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="message">
+      <div>
+        <label htmlFor="message" className={labelClass}>
           Project Description <span className="text-destructive">*</span>
-        </Label>
-        <Textarea
+        </label>
+        <textarea
           id="message"
+          className="flex w-full rounded-md border border-border bg-card px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-primary resize-none"
           value={form.message}
           onChange={(e) => updateField("message", e.target.value)}
-          placeholder="Tell us about your project — what problem are you solving, what tools are involved, what does success look like?"
+          placeholder="What are you trying to solve, what tools are involved, and what does success look like?"
           rows={5}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
         />
         {errors.message && (
-          <p id="message-error" className="text-sm text-destructive" role="alert">
+          <p id="message-error" className="mt-1.5 text-xs text-destructive" role="alert">
             {errors.message}
           </p>
         )}
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="referral">How did you hear about us?</Label>
+      <div>
+        <label htmlFor="referral" className={labelClass}>
+          How did you find us?
+        </label>
         <select
           id="referral"
           value={form.referral}
           onChange={(e) => updateField("referral", e.target.value)}
-          className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className={selectClass}
         >
           {REFERRAL_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value} className="bg-card text-foreground">
@@ -226,10 +242,10 @@ export function ContactForm() {
       <Button
         type="submit"
         size="lg"
-        className="w-full sm:w-auto"
+        className="h-11 w-full sm:w-auto"
         disabled={state.status === "submitting"}
       >
-        {state.status === "submitting" ? "Sending..." : "Send Message"}
+        {state.status === "submitting" ? "Sending..." : "Send message"}
       </Button>
     </form>
   );

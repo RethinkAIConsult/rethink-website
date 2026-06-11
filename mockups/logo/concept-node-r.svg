@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!--
+    NODE R — RethinkAI Consult logo mark
+    Canvas 64×64, working area 8–56 (4-unit margin).
+    No strokes, no gradients, no filters, no text.
+
+    GEOMETRY (all on 8px grid where possible):
+
+    Stem        rect 8,8  w=8  h=48              (x 8–16, y 8–56)
+    Top bar     rect 16,8  w=20 h=8              (x 16–36, y 8–16)
+    Mid bar     rect 16,32 w=20 h=8              (x 16–36, y 32–40)
+    Leg         polygon 36,40  44,40  56,56  48,56
+
+    Bowl arc ring:
+      Annulus right-half, center (36,24), outer r=16, inner r=8.
+      Outer arc: (36,8) via (52,24) to (36,40)  — split at rightmost point
+      Inner arc: (36,32) via (44,24) to (36,16) — split at rightmost inner point
+      Path (clockwise outer, counter-clockwise inner, same winding → filled ring):
+
+        M 36 8          ← outer top
+        A 16 16 0 0 1 52 24   ← sweep CW to outer right
+        A 16 16 0 0 1 36 40   ← sweep CW to outer bottom
+        L 36 32         ← step in to inner bottom
+        A  8  8 0 0 0 44 24   ← sweep CCW to inner right
+        A  8  8 0 0 0 36 16   ← sweep CCW to inner top
+        Z               ← close back to outer top (M 36 8 → inner top 36,16,
+                           but those are different y — need explicit line)
+
+      Correction: after the CCW inner arc ends at (36,16) we need to close
+      back to M (36,8). That gap (36,16)→(36,8) is along the left edge of the
+      arc ring, which is where the top bar and mid bar connect. A straight
+      line there is correct (the flat left face of the arc ring).
+      "Z" will draw a straight line from (36,16) to (36,8). Correct.
+
+    Counter (open space) bounds:
+      Left x=16 (stem right), Right: inner arc (max x=44 at y=24, but leftmost
+      inner edge at y=24 is x=36-8=28). Top y=16, Bottom y=32.
+      Counter is widest at y=24: width = 28-16 = 12.
+
+    Node dot: cx=22, cy=24, r=5
+      Left edge  22-5=17  (clears stem right edge 16 by 1px — tight but ok at large sizes,
+                            fine at 16px as both are solid currentColor so they merge visually
+                            into one solid shape)
+      Right edge 22+5=27  (just inside inner arc leftmost point at x=28)
+    → dot is fully within the counter. Good.
+  -->
+
+  <!-- Stem -->
+  <rect x="8" y="8" width="8" height="48" fill="currentColor"/>
+
+  <!-- Top bar -->
+  <rect x="16" y="8" width="20" height="8" fill="currentColor"/>
+
+  <!-- Bowl arc ring: right half of annulus (outer r=16, inner r=8, center 36,24) -->
+  <path
+    d="M 36 8 A 16 16 0 0 1 52 24 A 16 16 0 0 1 36 40 L 36 32 A 8 8 0 0 0 44 24 A 8 8 0 0 0 36 16 Z"
+    fill="currentColor"
+  />
+
+  <!-- Mid bar -->
+  <rect x="16" y="32" width="20" height="8" fill="currentColor"/>
+
+  <!-- Leg -->
+  <polygon points="36,40 44,40 56,56 48,56" fill="currentColor"/>
+
+  <!-- Node dot — accent sits inside the counter -->
+  <circle cx="22" cy="24" r="5" fill="#2563EB"/>
+
+</svg>

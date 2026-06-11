@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RethinkAI logo concepts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "Helvetica Neue", sans-serif; }
+  .panel { padding: 32px 40px; }
+  .panel.light { background: #F8F9FB; color: #0D1117; }
+  .panel.dark { background: #0A0A0F; color: #E2E8F0; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.5; margin-bottom: 20px; font-family: ui-monospace, monospace; }
+  table { border-collapse: collapse; width: 100%; }
+  td, th { padding: 14px 18px; text-align: center; vertical-align: middle; }
+  th { font-family: ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.6; }
+  th.rowlabel { text-align: left; }
+  .light td { border-top: 1px solid rgba(13,17,23,0.08); }
+  .dark td { border-top: 1px solid rgba(255,255,255,0.1); }
+  svg { display: inline-block; vertical-align: middle; }
+  .s16 svg { width: 16px; height: 16px; }
+  .s24 svg { width: 24px; height: 24px; }
+  .s32 svg { width: 32px; height: 32px; }
+  .s64 svg { width: 64px; height: 64px; }
+  .lockup { display: inline-flex; align-items: center; gap: 10px; }
+  .lockup svg { width: 26px; height: 26px; }
+  .wordmark { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; }
+  .wordmark .ai { color: #2563EB; }
+  .favicon-sim { display: inline-flex; align-items: center; gap: 6px; background: #E8EAED; border-radius: 8px; padding: 5px 12px 5px 8px; }
+  .favicon-sim svg { width: 16px; height: 16px; }
+  .favicon-sim span { font-size: 11px; color: #3c4043; }
+</style>
+</head>
+<body>
+<!-- SVG defs reused via <use> -->
+<div style="display:none">
+  <svg xmlns="http://www.w3.org/2000/svg"><defs>
+    <g id="node-r">
+      <rect x="8" y="8" width="8" height="48" fill="currentColor"/>
+      <rect x="16" y="8" width="20" height="8" fill="currentColor"/>
+      <path d="M 36 8 A 16 16 0 0 1 52 24 A 16 16 0 0 1 36 40 L 36 32 A 8 8 0 0 0 44 24 A 8 8 0 0 0 36 16 Z" fill="currentColor"/>
+      <rect x="16" y="32" width="20" height="8" fill="currentColor"/>
+      <polygon points="36,40 44,40 56,56 48,56" fill="currentColor"/>
+      <circle cx="22" cy="24" r="5" fill="#2563EB"/>
+    </g>
+    <g id="loop-r">
+      <path d="M 36.66 14.61 A 18 18 0 1 1 49.39 27.34" stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="butt"/>
+      <polygon points="52,37 43.6,28.9 55.2,25.8" fill="currentColor"/>
+      <rect x="27" y="27" width="10" height="10" fill="#2563EB"/>
+    </g>
+    <g id="cursor-r">
+      <path fill="currentColor" fill-rule="evenodd" d="M 4 4 L 42 4 L 42 44 L 50 44 L 50 60 L 42 60 L 42 48 L 34 48 L 34 32 L 12 32 L 12 60 L 4 60 Z M 12 12 L 12 24 L 34 24 L 34 12 Z"/>
+      <rect x="52" y="52" width="8" height="8" fill="#2563EB"/>
+    </g>
+    <g id="matrix-r">
+      <circle cx="15" cy="8" r="3.5" fill="currentColor"/><circle cx="22" cy="8" r="3.5" fill="currentColor"/><circle cx="29" cy="8" r="3.5" fill="currentColor"/><circle cx="36" cy="8" r="3.5" fill="currentColor"/>
+      <circle cx="15" cy="15" r="3.5" fill="currentColor"/><circle cx="43" cy="15" r="3.5" fill="currentColor"/>
+      <circle cx="15" cy="22" r="3.5" fill="currentColor"/><circle cx="43" cy="22" r="3.5" fill="currentColor"/>
+      <circle cx="15" cy="29" r="3.5" fill="currentColor"/><circle cx="22" cy="29" r="3.5" fill="currentColor"/><circle cx="29" cy="29" r="3.5" fill="currentColor"/><circle cx="36" cy="29" r="3.5" fill="currentColor"/>
+      <circle cx="15" cy="36" r="3.5" fill="currentColor"/><circle cx="36" cy="36" r="3.5" fill="#2563EB"/>
+      <circle cx="15" cy="43" r="3.5" fill="currentColor"/><circle cx="43" cy="43" r="3.5" fill="currentColor"/>
+      <circle cx="15" cy="50" r="3.5" fill="currentColor"/><circle cx="43" cy="50" r="3.5" fill="currentColor"/>
+    </g>
+    <g id="shift-r">
+      <path fill-rule="evenodd" fill="currentColor" d="M 8 4 L 48 4 C 52 4 56 8 56 16 L 56 24 C 56 32 52 36 48 36 L 16 36 L 16 60 L 8 60 Z M 16 12 L 44 12 C 47 12 48 14 48 16 L 48 24 C 48 26 47 28 44 28 L 16 28 Z"/>
+      <path fill="currentColor" d="M 41 42 L 47 38 L 60 57 L 55 60 Z"/>
+      <rect x="40" y="36" width="8" height="8" fill="#2563EB"/>
+    </g>
+  </defs></svg>
+</div>
+
+<script>
+const CONCEPTS = [
+  ["node-r", "1. Node R"],
+  ["loop-r", "2. Loop"],
+  ["cursor-r", "3. Terminal R"],
+  ["matrix-r", "4. Dot Matrix R"],
+  ["shift-r", "5. Rethought R"],
+];
+function mark(id) {
+  return '<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><use href="#' + id + '"/></svg>';
+}
+function panel(theme) {
+  let h = '<div class="panel ' + theme + '"><h2>' + theme + ' theme</h2><table>';
+  h += '<tr><th class="rowlabel">Size</th>' + CONCEPTS.map(c => '<th>' + c[1] + '</th>').join('') + '</tr>';
+  for (const size of ["16", "24", "32", "64"]) {
+    h += '<tr class="s' + size + '"><th class="rowlabel">' + size + 'px</th>' +
+      CONCEPTS.map(c => '<td>' + mark(c[0]) + '</td>').join('') + '</tr>';
+  }
+  h += '<tr><th class="rowlabel">Header lockup</th>' + CONCEPTS.map(c =>
+    '<td><span class="lockup">' + mark(c[0]) +
+    '<span class="wordmark">Rethink<span class="ai">AI</span></span></span></td>').join('') + '</tr>';
+  if (theme === "light") {
+    h += '<tr><th class="rowlabel">Browser tab</th>' + CONCEPTS.map(c =>
+      '<td><span class="favicon-sim">' + mark(c[0]) + '<span>RethinkAI Consult</span></span></td>').join('') + '</tr>';
+  }
+  h += '</table></div>';
+  return h;
+}
+document.body.insertAdjacentHTML("beforeend", panel("light"));
+document.body.insertAdjacentHTML("beforeend", panel("dark"));
+</script>
+</body>
+</html>

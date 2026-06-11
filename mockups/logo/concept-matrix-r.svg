@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!--
+    DOT MATRIX R — RethinkAI Consult logo mark
+    5 cols × 7 rows  |  dot r=3.5  |  spacing=7px center-to-center
+    Grid origin: col0 cx=15, row0 cy=8
+    Col centers: 15 22 29 36 43
+    Row centers: 8 15 22 29 36 43 50
+    Breathing room: ~4.5px top/bottom, ~11.5px left, ~14.5px right (R is left-heavy by nature)
+    Accent dot (#2563EB): row 4 col 3 — the pivot junction where the leg kicks off the bowl
+  -->
+
+  <!-- Row 0 (top bar of bowl): cols 0 1 2 3 -->
+  <circle cx="15" cy="8"  r="3.5" fill="currentColor"/>
+  <circle cx="22" cy="8"  r="3.5" fill="currentColor"/>
+  <circle cx="29" cy="8"  r="3.5" fill="currentColor"/>
+  <circle cx="36" cy="8"  r="3.5" fill="currentColor"/>
+
+  <!-- Row 1 (bowl sides): cols 0 4 -->
+  <circle cx="15" cy="15" r="3.5" fill="currentColor"/>
+  <circle cx="43" cy="15" r="3.5" fill="currentColor"/>
+
+  <!-- Row 2 (bowl sides): cols 0 4 -->
+  <circle cx="15" cy="22" r="3.5" fill="currentColor"/>
+  <circle cx="43" cy="22" r="3.5" fill="currentColor"/>
+
+  <!-- Row 3 (bowl close / stem): cols 0 1 2 3 -->
+  <circle cx="15" cy="29" r="3.5" fill="currentColor"/>
+  <circle cx="22" cy="29" r="3.5" fill="currentColor"/>
+  <circle cx="29" cy="29" r="3.5" fill="currentColor"/>
+  <circle cx="36" cy="29" r="3.5" fill="currentColor"/>
+
+  <!-- Row 4 (leg launch): col 0 + accent at col 3 -->
+  <circle cx="15" cy="36" r="3.5" fill="currentColor"/>
+  <circle cx="36" cy="36" r="3.5" fill="#2563EB"/>
+
+  <!-- Row 5 (leg diagonal): cols 0 4 -->
+  <circle cx="15" cy="43" r="3.5" fill="currentColor"/>
+  <circle cx="43" cy="43" r="3.5" fill="currentColor"/>
+
+  <!-- Row 6 (leg feet): cols 0 4 -->
+  <circle cx="15" cy="50" r="3.5" fill="currentColor"/>
+  <circle cx="43" cy="50" r="3.5" fill="currentColor"/>
+</svg>

@@ -1,13 +1,5 @@
 import type { SVGProps } from "react";
-import { Separator } from "@/components/ui/separator";
-
-const NAV_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
-] as const;
+import { Logo } from "@/components/logo";
 
 function GitHubIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -25,6 +17,25 @@ function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+const COMPANY_LINKS = [
+  { label: "About", href: "#about" },
+  { label: "Work", href: "#work" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contact", href: "#contact" },
+] as const;
+
+const SERVICES_LINKS = [
+  { label: "AI Automation Pipelines", href: "#services" },
+  { label: "Custom AI Agents", href: "#services" },
+  { label: "Full-Stack Applications", href: "#services" },
+  { label: "Tech Stack Audit", href: "#stack" },
+] as const;
+
+const RESOURCES_LINKS = [
+  { label: "Free Website Assessment", href: "/assessment" },
+  { label: "LLMs.txt", href: "/llms.txt" },
+] as const;
+
 const SOCIAL_LINKS = [
   {
     label: "GitHub",
@@ -40,24 +51,48 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/50 bg-background" aria-label="Site footer">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
-          {/* Logo + tagline */}
+    <footer className="border-t border-border bg-background" aria-label="Site footer">
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+
+        {/* Top section: brand + columns */}
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+
+          {/* Brand column */}
           <div>
-            <a href="#hero" className="text-lg font-bold tracking-tight">
-              Rethink<span className="text-primary">AI</span>
+            <a
+              href="#hero"
+              className="inline-block transition-opacity hover:opacity-80"
+              aria-label="RethinkAI, back to top"
+            >
+              <Logo />
             </a>
-            <p className="mt-1 text-sm text-muted-foreground">
-              AI automation that works while you sleep.
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
+              Senior AI engineering. We build production pipelines, custom agents, and full-stack applications that give your team back the time they should never have lost.
             </p>
+            <div className="mt-6 flex items-center gap-3">
+              {SOCIAL_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-8 w-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+                  aria-label={link.label}
+                >
+                  <link.icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Nav links */}
-          <nav aria-label="Footer navigation">
-            <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
+          {/* Company column */}
+          <div>
+            <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+              Company
+            </p>
+            <ul className="mt-4 space-y-3">
+              {COMPANY_LINKS.map((link) => (
+                <li key={link.label}>
                   <a
                     href={link.href}
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -67,30 +102,55 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </nav>
+          </div>
 
-          {/* Social links */}
-          <div className="flex items-center gap-4">
-            {SOCIAL_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-foreground"
-                aria-label={link.label}
-              >
-                <link.icon className="h-5 w-5" />
-              </a>
-            ))}
+          {/* Services column */}
+          <div>
+            <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+              Services
+            </p>
+            <ul className="mt-4 space-y-3">
+              {SERVICES_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources column */}
+          <div>
+            <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+              Resources
+            </p>
+            <ul className="mt-4 space-y-3">
+              {RESOURCES_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        <Separator className="my-8 bg-border/50" />
+        <div className="my-8 border-t border-border" />
 
-        <div className="flex flex-col items-center justify-between gap-4 text-center text-sm text-muted-foreground md:flex-row">
+        {/* Bottom bar */}
+        <div className="flex flex-col items-center justify-between gap-4 text-center text-sm text-muted-foreground md:flex-row md:text-left">
           <p>&copy; {new Date().getFullYear()} RethinkAI Consult. All rights reserved.</p>
-          <p>Built with Next.js and AI</p>
+          <p className="font-mono text-xs text-muted-foreground/60">
+            Built with Next.js, Tailwind CSS, and Vercel
+          </p>
         </div>
       </div>
     </footer>

@@ -4,34 +4,49 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { FadeIn } from "@/components/fade-in";
+import { SectionHeading } from "@/components/section-heading";
+import { ArrowLink } from "@/components/arrow-link";
 import { FAQ_ITEMS } from "@/lib/data";
 
 export function Faq() {
   return (
-    <section id="faq" className="border-t border-border/50 py-24" aria-labelledby="faq-heading">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 id="faq-heading" className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Frequently Asked Questions
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Everything you need to know about working with us. If your question
-            isn&apos;t here, get in touch — we&apos;re happy to chat.
-          </p>
-        </div>
+    <section
+      id="faq"
+      className="border-t border-border py-20 lg:py-28 section-accent"
+      aria-labelledby="faq-heading"
+    >
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
-        <Accordion className="mt-12">
-          {FAQ_ITEMS.map((item, index) => (
-            <AccordionItem key={item.question} value={`faq-${index}`}>
-              <AccordionTrigger className="text-left text-base font-medium">
-                {item.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed">
-                {item.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <SectionHeading
+          number="05"
+          eyebrow="FAQ"
+          headingId="faq-heading"
+          title={<>Common questions</>}
+          aside={<ArrowLink href="#contact">Ask us directly</ArrowLink>}
+        />
+
+        <FadeIn delay={0.1}>
+          <div className="mt-12 lg:mt-14 mx-auto max-w-4xl rounded-xl border border-border bg-card">
+            <Accordion>
+              {FAQ_ITEMS.map((item, index) => (
+                <AccordionItem
+                  key={item.question}
+                  value={`faq-${index}`}
+                  className="px-6"
+                >
+                  <AccordionTrigger className="py-5 text-left text-base font-medium text-foreground hover:no-underline">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </FadeIn>
+
       </div>
     </section>
   );

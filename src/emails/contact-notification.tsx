@@ -21,8 +21,8 @@ interface ContactNotificationProps {
 
 const BUDGET_LABELS: Record<string, string> = {
   "under-5k": "Under £5,000",
-  "5k-15k": "£5,000 – £15,000",
-  "15k-50k": "£15,000 – £50,000",
+  "5k-15k": "£5,000 to £15,000",
+  "15k-50k": "£15,000 to £50,000",
   "50k-plus": "£50,000+",
 };
 

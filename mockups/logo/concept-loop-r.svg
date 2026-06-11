@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!--
+    RETHINK LOOP — RethinkAI Consult logo mark
+    Concept: almost-closed ring (300° arc) with angular arrowhead = "re-" loop motion;
+             solid #2563EB square at center = the AI core.
+
+    Geometry (all on 8px grid or derived from r=18):
+      Center: (32, 32)
+      Ring: stroke 8, r=18 — outer edge 26 from center, 6 units from viewBox edge
+      Arc: 300° clockwise, gap at top-right (15° to 75°, standard math angles)
+      Arc start (75°): (36.66, 14.61)
+      Arc end   (15°): (49.39, 27.34)
+      Arrowhead: chunky triangle, tip at (52, 37), wings at (43.6, 28.9) and (55.2, 25.8)
+      Center square: 10×10 at (27, 27), fill #2563EB
+  -->
+
+  <!-- 300° clockwise arc: large-arc=1, sweep=1 -->
+  <path
+    d="M 36.66 14.61 A 18 18 0 1 1 49.39 27.34"
+    stroke="currentColor"
+    stroke-width="8"
+    stroke-linecap="butt"
+  />
+
+  <!-- Chunky arrowhead at arc terminus, pointing clockwise (down-right direction) -->
+  <polygon
+    points="52,37 43.6,28.9 55.2,25.8"
+    fill="currentColor"
+  />
+
+  <!-- AI core: electric-blue square, centered in ring -->
+  <rect x="27" y="27" width="10" height="10" fill="#2563EB" />
+</svg>

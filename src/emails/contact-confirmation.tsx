@@ -28,7 +28,7 @@ export function ContactConfirmation({ name }: ContactConfirmationProps) {
           <Section style={{ marginTop: "24px" }}>
             <Text style={{ fontSize: "16px", color: "#E2E8F0", lineHeight: "1.6" }}>
               We&apos;ve received your message and will get back to you within 24
-              hours with an honest assessment of how we can help.
+              hours with an honest read on whether we can help.
             </Text>
             <Text style={{ fontSize: "16px", color: "#E2E8F0", lineHeight: "1.6" }}>
               In the meantime, feel free to check out our work on{" "}
@@ -45,7 +45,7 @@ export function ContactConfirmation({ name }: ContactConfirmationProps) {
 
           <Hr style={{ borderColor: "#1A1A2E", marginTop: "32px" }} />
           <Text style={{ fontSize: "14px", color: "#94A3B8", marginTop: "16px" }}>
-            — Jack Costanzi, RethinkAI Consult
+            Jack Costanzi, RethinkAI Consult
           </Text>
           <Text style={{ fontSize: "12px", color: "#64748B" }}>
             rethinkaiconsult.com

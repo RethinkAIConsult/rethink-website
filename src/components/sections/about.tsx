@@ -1,12 +1,8 @@
+import { FadeIn } from "@/components/fade-in";
+import { SectionHeading } from "@/components/section-heading";
+import { CountUp } from "@/components/count-up";
+import { ArrowLink } from "@/components/arrow-link";
 import type { SVGProps } from "react";
-
-function GitHubIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-    </svg>
-  );
-}
 
 function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -16,95 +12,135 @@ function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+const CREDENTIALS = [
+  { label: "Manual hours automated", value: null, numeric: 120, suffix: "+/mo" },
+  { label: "Typical delivery", value: "2 to 8 wks", numeric: null, suffix: null },
+  { label: "Engagement model", value: "Fixed scope", numeric: null, suffix: null },
+  { label: "Core language", value: "TypeScript", numeric: null, suffix: null },
+] as const;
+
+const PRINCIPLES = [
+  {
+    title: "Strict TypeScript",
+    body: "No any types, no shortcuts. Type safety cuts entire bug categories before they reach production.",
+  },
+  {
+    title: "Event-driven architecture",
+    body: "Systems that react instead of poll. Durable execution means nothing fails silently in the background.",
+  },
+  {
+    title: "AI as first-class tooling",
+    body: "Models are designed in, not bolted on. We automate what AI is genuinely good at and keep humans in the loop where it matters.",
+  },
+  {
+    title: "Ship fast, iterate faster",
+    body: "Working software in week one. Tight scope, incremental deploys, outcomes over effort.",
+  },
+] as const;
+
 export function About() {
   return (
-    <section id="about" className="border-t border-border/50 py-24" aria-labelledby="about-heading">
+    <section
+      id="about"
+      className="border-t border-border py-20 lg:py-28"
+      aria-labelledby="about-heading"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          {/* Photo placeholder */}
-          <div className="flex items-center justify-center">
-            <div className="relative h-80 w-80 overflow-hidden rounded-2xl border border-border/50 bg-secondary lg:h-96 lg:w-full lg:max-w-md">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/10" />
-              <div className="flex h-full items-center justify-center">
-                <span className="text-6xl font-bold text-muted-foreground/20">JC</span>
+
+        <SectionHeading
+          number="04"
+          eyebrow="About RethinkAI"
+          headingId="about-heading"
+          title={<>A studio built for the way AI actually works</>}
+          lead="Founded by Jack Costanzi, RethinkAI is a senior engineering studio that turns the hours your team loses to repetitive work into leverage."
+          aside={<ArrowLink href="#contact">Work with us</ArrowLink>}
+        />
+
+        {/* Stats strip */}
+        <FadeIn delay={0.1}>
+          <div className="mt-12 lg:mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-4">
+            {CREDENTIALS.map((c) => (
+              <div
+                key={c.label}
+                className="flex flex-col gap-1 bg-card px-6 py-6"
+              >
+                <span className="metric text-2xl font-bold text-foreground">
+                  {c.numeric !== null ? (
+                    <>
+                      <CountUp value={c.numeric} className="metric text-2xl font-bold text-foreground" />
+                      {c.suffix}
+                    </>
+                  ) : (
+                    c.value
+                  )}
+                </span>
+                <span className="text-sm text-muted-foreground">{c.label}</span>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+
+        {/* Narrative + principles */}
+        <div className="mt-12 lg:mt-14 grid gap-12 lg:grid-cols-2 lg:gap-20">
+
+          {/* Narrative */}
+          <FadeIn delay={0.1}>
+            <div className="space-y-5 text-base leading-relaxed text-muted-foreground">
+              <p>
+                One client&apos;s weekly reporting pack took two analysts the better part of a day, every week. We replaced it with a pipeline that runs overnight and has the pack ready before the team logs in. That is more than 120 hours a month back for real analysis.
+              </p>
+              <p>
+                We work with companies that have outgrown spreadsheets and manual processes but have not yet built an in-house AI engineering team. We step in, build the right thing, and hand you a system your team can own.
+              </p>
+              <blockquote className="border-l-2 border-primary pl-5 text-foreground">
+                <p className="font-medium">
+                  &ldquo;The best automation is invisible. You stop thinking about the process because it simply works.&rdquo;
+                </p>
+              </blockquote>
+              <div className="flex items-center gap-3 pt-2">
+                <a
+                  href="https://linkedin.com/in/jackcostanzi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                  aria-label="Jack Costanzi on LinkedIn"
+                >
+                  <LinkedInIcon className="h-4 w-4" />
+                  Jack Costanzi
+                </a>
+                <span className="text-border">|</span>
+                <span className="text-sm text-muted-foreground">Founder, RethinkAI Consult</span>
               </div>
             </div>
-          </div>
+          </FadeIn>
 
-          {/* Bio */}
-          <div>
-            <h2 id="about-heading" className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Who&apos;s Behind RethinkAI
-            </h2>
-
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              I&apos;m Jack Costanzi, an AI automation engineer. I founded RethinkAI
-              because I kept seeing the same problem: businesses spending thousands
-              of hours on work that machines should be doing. Not someday — right
-              now, with technology that already exists.
-            </p>
-
-            <p className="mt-4 leading-relaxed text-muted-foreground">
-              Before RethinkAI, I spent years building software systems across
-              finance, operations, and data engineering. I&apos;ve seen firsthand what
-              happens when a company automates the right process: teams get smaller
-              but more effective, margins improve, and people finally get to do the
-              thinking work they were hired for.
-            </p>
-
-            <blockquote className="mt-8 border-l-2 border-primary pl-6">
-              <p className="text-lg font-medium italic text-foreground">
-                &ldquo;Automation should feel invisible. The best systems are the ones
-                nobody has to think about.&rdquo;
-              </p>
-            </blockquote>
-
-            <div className="mt-8">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                How We Work
-              </h3>
-              <ul className="mt-4 space-y-2">
-                {[
-                  "Strict TypeScript — no shortcuts, no any types",
-                  "Event-driven architecture — systems that react, not poll",
-                  "AI-native design — models are first-class tools, not afterthoughts",
-                  "Ship fast, iterate faster — working software beats perfect plans",
-                ].map((value) => (
-                  <li
-                    key={value}
-                    className="flex items-start gap-2 text-sm text-muted-foreground"
-                  >
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                    {value}
-                  </li>
+          {/* Principles */}
+          <FadeIn delay={0.2}>
+            <div>
+              <p className="eyebrow mb-6">How we work</p>
+              <div className="space-y-4">
+                {PRINCIPLES.map((p, i) => (
+                  <FadeIn key={p.title} delay={0.2 + i * 0.06}>
+                    <div className="rounded-lg border border-border bg-card p-6 transition-colors duration-200 hover:border-primary/40">
+                      <div className="flex items-start gap-4">
+                        <span className="metric text-xs font-bold text-primary shrink-0 mt-0.5">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <div className="min-w-0">
+                          <p className="font-semibold text-foreground">{p.title}</p>
+                          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                            {p.body}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </FadeIn>
                 ))}
-              </ul>
+              </div>
             </div>
-
-            <div className="mt-8 flex gap-4">
-              <a
-                href="https://github.com/RethinkAIConsult"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                aria-label="GitHub"
-              >
-                <GitHubIcon className="h-5 w-5" />
-                GitHub
-              </a>
-              <a
-                href="https://linkedin.com/in/jackcostanzi"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                aria-label="LinkedIn"
-              >
-                <LinkedInIcon className="h-5 w-5" />
-                LinkedIn
-              </a>
-            </div>
-          </div>
+          </FadeIn>
         </div>
+
       </div>
     </section>
   );

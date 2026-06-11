@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!--
+    concept-cursor-r — TERMINAL R
+    ViewBox: 64×64. Grid: 8px. Breathing room: 4px min all sides.
+    Colors: currentColor (R body) | #2563EB (cursor block).
+
+    Anatomy:
+      Stem:        x 4–12,  y 4–60
+      Top bar:     x 4–42,  y 4–12
+      Bowl wall:   x 34–42, y 4–32  (inner counter: x 12–34, y 12–24)
+      Mid bar:     x 4–42,  y 24–32
+      Leg step A:  x 34–42, y 32–48
+      Leg step B:  x 42–50, y 44–60  (4px overlap with step A)
+      Cursor:      x 52–60, y 52–60  (2px gap from leg foot)
+  -->
+  <path
+    fill="currentColor"
+    fill-rule="evenodd"
+    d="M 4 4 L 42 4 L 42 44 L 50 44 L 50 60 L 42 60 L 42 48 L 34 48 L 34 32 L 12 32 L 12 60 L 4 60 Z M 12 12 L 12 24 L 34 24 L 34 12 Z"
+  />
+  <rect x="52" y="52" width="8" height="8" fill="#2563EB"/>
+</svg>
