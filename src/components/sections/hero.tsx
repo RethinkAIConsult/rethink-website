@@ -1,8 +1,10 @@
 "use client";
 
 import { ArrowLink } from "@/components/arrow-link";
+import { CountUp } from "@/components/count-up";
 import { FadeIn } from "@/components/fade-in";
 import { Marquee } from "@/components/marquee";
+import { useCallback, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 
 // Syntax-highlighted pipeline snippet: real Inngest research-and-outreach function.
@@ -39,7 +41,59 @@ const CODE: Tok[][] = [
   [{ t: ")" }],
 ];
 
-function HeroCodePanel() {
+// How many code lines to show in the mobile compact panel (first N lines).
+const MOBILE_CODE_LINES = 7;
+
+function CodeLines({
+  lines,
+  animate,
+  reduced,
+}: {
+  lines: Tok[][];
+  animate: boolean;
+  reduced: boolean;
+}) {
+  return (
+    <>
+      {lines.map((line, i) => (
+        <div
+          key={i}
+          className="text-[#CDD9E5] whitespace-pre"
+          style={
+            animate && !reduced
+              ? {
+                  opacity: 0,
+                  transform: "translateY(6px)",
+                  animation: `hero-line-in 0.3s ease forwards`,
+                  animationDelay: `${i * 35}ms`,
+                }
+              : undefined
+          }
+        >
+          {line.length === 0
+            ? " "
+            : line.map((tok, j) => (
+                <span key={j} className={tok.c ? TOKEN_CLASS[tok.c] : undefined}>
+                  {tok.t}
+                </span>
+              ))}
+        </div>
+      ))}
+    </>
+  );
+}
+
+function HeroCodePanel({
+  compact = false,
+  animate = false,
+  reduced = false,
+}: {
+  compact?: boolean;
+  animate?: boolean;
+  reduced?: boolean;
+}) {
+  const lines = compact ? CODE.slice(0, MOBILE_CODE_LINES) : CODE;
+
   return (
     <div
       className="relative min-w-0 overflow-hidden rounded-xl border border-white/[0.08] bg-[#0D1117] shadow-2xl shadow-black/40"
@@ -57,26 +111,16 @@ function HeroCodePanel() {
 
       {/* Code */}
       <div className="overflow-x-auto p-5 font-mono text-[12px] leading-[1.75]">
-        {CODE.map((line, i) => (
-          <div key={i} className="text-[#CDD9E5] whitespace-pre">
-            {line.length === 0
-              ? " "
-              : line.map((tok, j) => (
-                  <span key={j} className={tok.c ? TOKEN_CLASS[tok.c] : undefined}>
-                    {tok.t}
-                  </span>
-                ))}
-          </div>
-        ))}
+        <CodeLines lines={lines} animate={animate} reduced={reduced} />
       </div>
 
       {/* Status bar */}
       <div className="flex items-center gap-2.5 border-t border-white/[0.08] bg-[#0A0D12] px-4 py-2.5 font-mono text-[11px]">
         <span className="relative flex h-2 w-2 shrink-0">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#28C840] opacity-60" />
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#28C840] opacity-60 motion-reduce:animate-none" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-[#28C840]" />
         </span>
-        <span className="text-[#8B949E]">30+ agents running in production</span>
+        <span className="text-[#8B949E]">durable, retried automatically</span>
         <span
           className="cursor-blink ml-auto inline-block h-[14px] w-[7px] bg-[#2563EB]"
           aria-hidden="true"
@@ -115,16 +159,51 @@ function GlowBackdrop({ reduced }: { reduced: boolean }) {
   );
 }
 
+// Cursor-tracking spotlight backdrop.
+// Reads --mouse-x / --mouse-y CSS custom properties set on the section element.
+function SpotlightBackdrop({ reduced }: { reduced: boolean }) {
+  if (reduced) return null;
+  return (
+    <div
+      className="pointer-events-none absolute inset-0 -z-10"
+      aria-hidden="true"
+      style={{
+        background:
+          "radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 40%), rgba(37,99,235,0.06), transparent 70%)",
+      }}
+    />
+  );
+}
+
 export function Hero() {
   const reduced = useReducedMotion() ?? false;
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Cursor-tracking spotlight: update CSS custom properties on the section.
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent<HTMLElement>) => {
+      if (reduced) return;
+      const el = sectionRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      el.style.setProperty("--mouse-x", `${x}%`);
+      el.style.setProperty("--mouse-y", `${y}%`);
+    },
+    [reduced]
+  );
 
   return (
     <section
       id="hero"
+      ref={sectionRef}
       className="relative overflow-hidden border-b border-border"
       aria-label="Introduction"
+      onPointerMove={handlePointerMove}
     >
       <GlowBackdrop reduced={reduced} />
+      <SpotlightBackdrop reduced={reduced} />
 
       <div className="mx-auto grid w-full max-w-none items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:px-8 lg:py-20 xl:grid-cols-[1.1fr_0.9fr]">
 
@@ -149,6 +228,11 @@ export function Hero() {
             </p>
           </FadeIn>
 
+          {/* Mobile-only compact code panel: visible below lg, hidden at lg+ */}
+          <div className="mt-8 block lg:hidden" aria-hidden="true">
+            <HeroCodePanel compact animate reduced={reduced} />
+          </div>
+
           <FadeIn delay={0.24}>
             <div className="mt-9 flex flex-wrap items-center gap-6">
               <a
@@ -169,14 +253,14 @@ export function Hero() {
                 {/* Primary metric */}
                 <div className="min-w-0">
                   <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-                    Manual work automated
+                    Engineering and automation
                   </p>
                   <p className="metric mt-2 text-2xl font-semibold tracking-tight text-foreground">
-                    120<span className="text-primary">+</span>
-                    <span className="text-sm text-muted-foreground ml-1">hours/mo</span>
+                    <CountUp value={8} /><span className="text-primary">+</span>
+                    <span className="text-sm text-muted-foreground ml-1">yrs</span>
                   </p>
                   <p className="mt-1 font-mono text-[10px] text-muted-foreground/70 uppercase tracking-wider">
-                    Across reporting and data ops
+                    3+ years shipping production AI
                   </p>
                 </div>
 
@@ -185,13 +269,28 @@ export function Hero() {
                 {/* Secondary metric */}
                 <div className="min-w-0">
                   <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-                    Time to ship
+                    Working software in
                   </p>
                   <p className="metric mt-2 text-2xl font-semibold tracking-tight text-foreground">
-                    6<span className="text-sm text-muted-foreground ml-0.5">weeks</span>
+                    Week <span className="text-primary">1</span>
                   </p>
                   <p className="mt-1 font-mono text-[10px] text-muted-foreground/70 uppercase tracking-wider">
-                    Typical engagement
+                    Not month three
+                  </p>
+                </div>
+
+                <div className="hidden h-12 w-px bg-border sm:block" />
+
+                {/* Tertiary metric: promoted from code panel */}
+                <div className="min-w-0">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                    Agentic AI agents in production
+                  </p>
+                  <p className="metric mt-2 text-2xl font-semibold tracking-tight text-foreground">
+                    <CountUp value={200} /><span className="text-primary">+</span>
+                  </p>
+                  <p className="mt-1 font-mono text-[10px] text-muted-foreground/70 uppercase tracking-wider">
+                    Autonomous, multi-step, across client stacks
                   </p>
                 </div>
               </div>
@@ -206,9 +305,12 @@ export function Hero() {
           </FadeIn>
         </div>
 
-        {/* Right column: code panel (no entrance animation -- it's an LCP candidate) */}
-        <div className="min-w-0">
-          <HeroCodePanel />
+        {/* Right column: full code panel, desktop only (hidden on mobile) */}
+        <div className="min-w-0 hidden lg:block">
+          <HeroCodePanel animate reduced={reduced} />
+          <p className="mt-3 text-center font-mono text-[11px] text-muted-foreground/70">
+            A real RethinkAI pipeline: it researches, scores, and drafts outreach on its own.
+          </p>
         </div>
       </div>
 
@@ -225,6 +327,13 @@ export function Hero() {
           ))}
         </Marquee>
       </div>
+
+      {/* Keyframe for code-line stagger reveal */}
+      <style>{`
+        @keyframes hero-line-in {
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </section>
   );
 }

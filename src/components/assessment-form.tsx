@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { BOOKING_URL } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -171,12 +171,13 @@ function AssessmentResult({ report }: { report: AssessmentReport }) {
           We turn recommendations into a running system in weeks. Book a free 20-minute call and
           we will walk through what is possible for your stack.
         </p>
-        <Link
-          href="/#contact"
+        <a
+          href={BOOKING_URL || "/#contact"}
+          {...(BOOKING_URL ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           className="mt-5 inline-flex h-10 items-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           Book a call
-        </Link>
+        </a>
       </div>
     </div>
   );

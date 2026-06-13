@@ -13,10 +13,10 @@ function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
 }
 
 const CREDENTIALS = [
-  { label: "Manual hours automated", value: null, numeric: 120, suffix: "+/mo" },
-  { label: "Typical delivery", value: "2 to 8 wks", numeric: null, suffix: null },
-  { label: "Engagement model", value: "Fixed scope", numeric: null, suffix: null },
-  { label: "Core language", value: "TypeScript", numeric: null, suffix: null },
+  { label: "Engineering and automation", value: "8+ yrs", numeric: null, suffix: null },
+  { label: "Production AI systems shipped", value: null, numeric: 12, suffix: "+" },
+  { label: "Senior engineers only", value: "No juniors", numeric: null, suffix: null },
+  { label: "Engagement model", value: "Flexible", numeric: null, suffix: null },
 ] as const;
 
 const PRINCIPLES = [
@@ -35,6 +35,10 @@ const PRINCIPLES = [
   {
     title: "Ship fast, iterate faster",
     body: "Working software in week one. Tight scope, incremental deploys, outcomes over effort.",
+  },
+  {
+    title: "Clean handover",
+    body: "Every project ships with full documentation, a working CI/CD pipeline, and a codebase your own developers can maintain. We write code for the team who inherits it.",
   },
 ] as const;
 
@@ -87,15 +91,21 @@ export function About() {
           <FadeIn delay={0.1}>
             <div className="space-y-5 text-base leading-relaxed text-muted-foreground">
               <p>
-                One client&apos;s weekly reporting pack took two analysts the better part of a day, every week. We replaced it with a pipeline that runs overnight and has the pack ready before the team logs in. That is more than 120 hours a month back for real analysis.
+                One client&apos;s reporting and reconciliation work was eating more than 120 hours of analyst time a month. We replaced it with a pipeline that runs overnight, so the pack is ready before the team logs in, untouched by hand.
               </p>
               <p>
                 We work with companies that have outgrown spreadsheets and manual processes but have not yet built an in-house AI engineering team. We step in, build the right thing, and hand you a system your team can own.
+              </p>
+              <p>
+                RethinkAI is led by Jack Costanzi, a hands-on engineer who builds the systems we ship: durable pipelines, AI agents, and the full-stack tools around them. We have put complete AI stacks into production for venture-backed and established companies, and only senior engineers touch client work. Client names are held under NDA, and we are happy to walk through the work on a call.
               </p>
               <blockquote className="border-l-2 border-primary pl-5 text-foreground">
                 <p className="font-medium">
                   &ldquo;The best automation is invisible. You stop thinking about the process because it simply works.&rdquo;
                 </p>
+                <footer className="mt-2 text-sm font-normal text-muted-foreground">
+                  Jack Costanzi, on how we build
+                </footer>
               </blockquote>
               <div className="flex items-center gap-3 pt-2">
                 <a
