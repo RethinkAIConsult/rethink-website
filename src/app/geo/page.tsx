@@ -23,10 +23,20 @@ export const metadata: Metadata = {
   },
 };
 
-const geo = SERVICES.find((s) => s.slug === "geo-and-ai-visibility")!;
+const geo =
+  SERVICES.find((s) => s.slug === "geo-and-ai-visibility") ??
+  (() => {
+    throw new Error('Missing service "geo-and-ai-visibility" in SERVICES');
+  })();
+
+const geoFaq =
+  FAQ_ITEMS.find((f) => f.question.includes("GEO")) ??
+  (() => {
+    throw new Error("Missing GEO FAQ entry in FAQ_ITEMS");
+  })();
 
 const GEO_FAQS = [
-  FAQ_ITEMS.find((f) => f.question.includes("GEO"))!,
+  geoFaq,
   {
     question: "How is GEO different from SEO?",
     answer:
@@ -130,7 +140,7 @@ export default function GeoPage() {
               Home
             </Link>
             <span aria-hidden="true">/</span>
-            <span className="text-foreground">GEO and AI Visibility</span>
+            <span className="text-foreground" aria-current="page">GEO and AI Visibility</span>
           </nav>
         </div>
       </div>
@@ -156,7 +166,7 @@ export default function GeoPage() {
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <Link
                 href="/#contact"
-                className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-[#1D4ED8] transition-colors"
+                className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-[#1D4ED8] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Get a GEO audit
               </Link>
@@ -360,7 +370,7 @@ export default function GeoPage() {
               <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
                 <Link
                   href="/#contact"
-                  className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-[#1D4ED8] transition-colors"
+                  className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-[#1D4ED8] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   Get a GEO audit
                 </Link>

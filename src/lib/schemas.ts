@@ -1,5 +1,5 @@
 import { FAQ_ITEMS, SERVICES } from "@/lib/data";
-import { SITE_URL, CONTENT_UPDATED, CONTENT_PUBLISHED } from "@/lib/site";
+import { SITE_URL, CONTENT_UPDATED, CONTENT_PUBLISHED, serviceHref } from "@/lib/site";
 import type { Service } from "@/types";
 
 // Stable @id anchors
@@ -95,19 +95,23 @@ export const personSchema = {
 
 // ---- Per-service schemas -------------------------------------------------
 
-const serviceSchemas = SERVICES.map((service) => ({
-  "@context": "https://schema.org",
-  "@type": "Service",
-  name: service.title,
-  description: service.description,
-  url: `${SITE_URL}/services/${service.slug}`,
-  provider: { "@id": ORG_ID },
-  areaServed: [
-    { "@type": "Country", name: "United Kingdom" },
-    { "@type": "Country", name: "United States" },
-  ],
-  serviceType: "AI Engineering Consulting",
-}));
+const serviceSchemas = SERVICES.map((service) => {
+  const url = `${SITE_URL}${serviceHref(service.slug)}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: service.title,
+    description: service.description,
+    url,
+    provider: { "@id": ORG_ID },
+    areaServed: [
+      { "@type": "Country", name: "United Kingdom" },
+      { "@type": "Country", name: "United States" },
+    ],
+    serviceType: "AI Engineering Consulting",
+  };
+});
 
 // ---- ProfessionalService with hasOfferCatalog ---------------------------
 
@@ -163,7 +167,7 @@ export const professionalServiceSchema = {
         "@type": "Service",
         name: service.title,
         description: service.description,
-        url: `${SITE_URL}/services/${service.slug}`,
+        url: `${SITE_URL}${serviceHref(service.slug)}`,
         provider: { "@id": ORG_ID },
       },
       priceSpecification: {
@@ -260,6 +264,7 @@ export function serviceLd(service: Service, url: string) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": `${url}#service`,
     name: service.title,
     description: service.description,
     url,

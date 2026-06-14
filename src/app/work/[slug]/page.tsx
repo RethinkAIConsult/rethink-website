@@ -5,7 +5,7 @@ import { FadeIn } from "@/components/fade-in";
 import { ArrowLink } from "@/components/arrow-link";
 import { CountUp } from "@/components/count-up";
 import { CASE_STUDIES, BOOKING_URL } from "@/lib/data";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, metaDescription } from "@/lib/site";
 import { breadcrumbSchema, webPageLd } from "@/lib/schemas";
 
 export const dynamicParams = false;
@@ -22,15 +22,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const study = CASE_STUDIES.find((c) => c.slug === slug);
   if (!study) return {};
+  const description = metaDescription(study.description);
   return {
     title: study.title,
-    description: study.description,
+    description,
     alternates: {
       canonical: `${SITE_URL}/work/${slug}`,
     },
     openGraph: {
       title: study.title,
-      description: study.description,
+      description,
       url: `${SITE_URL}/work/${slug}`,
     },
   };
@@ -98,7 +99,7 @@ export default async function CaseStudyPage({
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li className="text-foreground truncate max-w-[20ch]">{study.title}</li>
+              <li className="text-foreground truncate max-w-[20ch]" aria-current="page">{study.title}</li>
             </ol>
           </nav>
 
@@ -192,7 +193,7 @@ export default async function CaseStudyPage({
                 </div>
               </div>
               <div className="w-full sm:w-auto">
-                <p className="font-mono text-xs text-muted-foreground/70">
+                <p className="font-mono text-xs text-muted-foreground">
                   Client name withheld under NDA.
                 </p>
               </div>

@@ -4,7 +4,7 @@ import { FadeIn } from "@/components/fade-in";
 import { ArrowLink } from "@/components/arrow-link";
 import { Badge } from "@/components/ui/badge";
 import { SERVICES, BOOKING_URL } from "@/lib/data";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, serviceHref } from "@/lib/site";
 import { breadcrumbSchema, webPageLd } from "@/lib/schemas";
 
 const META_DESCRIPTION =
@@ -69,7 +69,7 @@ export default function ServicesPage() {
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li className="text-foreground">Services</li>
+              <li className="text-foreground" aria-current="page">Services</li>
             </ol>
           </nav>
 
@@ -100,7 +100,7 @@ export default function ServicesPage() {
                     {/* Title */}
                     <h2 className="text-xl font-semibold tracking-tight text-foreground">
                       <Link
-                        href={`/services/${service.slug}`}
+                        href={serviceHref(service.slug)}
                         className="hover:text-primary transition-colors"
                       >
                         {service.title}
@@ -127,7 +127,7 @@ export default function ServicesPage() {
 
                     {/* Arrow link */}
                     <div className="mt-5">
-                      <ArrowLink href={`/services/${service.slug}`} tone="primary">
+                      <ArrowLink href={serviceHref(service.slug)} tone="primary">
                         Explore this service
                       </ArrowLink>
                     </div>
@@ -157,7 +157,7 @@ export default function ServicesPage() {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
                 href="/#contact"
-                className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-[#1D4ED8] transition-colors"
+                className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-[#1D4ED8] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Get in touch
               </Link>

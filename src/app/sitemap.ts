@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL, CONTENT_UPDATED } from "@/lib/site";
+import { SITE_URL, CONTENT_UPDATED, GEO_SLUG } from "@/lib/site";
 import { SERVICES, CASE_STUDIES } from "@/lib/data";
 
 // lastModified is driven by the single CONTENT_UPDATED constant in lib/site.ts,
@@ -16,10 +16,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/assessment`, priority: 0.7 },
   ];
 
-  const serviceRoutes = SERVICES.map((service) => ({
-    url: `${SITE_URL}/services/${service.slug}`,
-    priority: 0.8,
-  }));
+  const serviceRoutes = SERVICES.filter((service) => service.slug !== GEO_SLUG).map(
+    (service) => ({
+      url: `${SITE_URL}/services/${service.slug}`,
+      priority: 0.8,
+    })
+  );
 
   const workRoutes = CASE_STUDIES.map((study) => ({
     url: `${SITE_URL}/work/${study.slug}`,

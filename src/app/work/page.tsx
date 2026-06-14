@@ -69,7 +69,7 @@ export default function WorkPage() {
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li className="text-foreground">Work</li>
+              <li className="text-foreground" aria-current="page">Work</li>
             </ol>
           </nav>
 
@@ -189,7 +189,7 @@ export default function WorkPage() {
             ))}
           </div>
 
-          <p className="mt-10 text-center font-mono text-xs text-muted-foreground/70">
+          <p className="mt-10 text-center font-mono text-xs text-muted-foreground">
             Client names withheld under NDA. We will walk through the specifics on a call.
           </p>
         </div>

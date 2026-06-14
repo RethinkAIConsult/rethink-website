@@ -5,11 +5,13 @@ import { FadeIn } from "@/components/fade-in";
 import { ArrowLink } from "@/components/arrow-link";
 import { Badge } from "@/components/ui/badge";
 import { SERVICES, BOOKING_URL } from "@/lib/data";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, GEO_SLUG, serviceHref, metaDescription } from "@/lib/site";
 import { breadcrumbSchema, serviceLd, webPageLd } from "@/lib/schemas";
 
 export function generateStaticParams() {
-  return SERVICES.map((s) => ({ slug: s.slug }));
+  // GEO lives at /geo, so it is not generated here (next.config redirects the
+  // /services/geo-and-ai-visibility path to /geo).
+  return SERVICES.filter((s) => s.slug !== GEO_SLUG).map((s) => ({ slug: s.slug }));
 }
 
 export const dynamicParams = false;
@@ -22,15 +24,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = SERVICES.find((s) => s.slug === slug);
   if (!service) return {};
+  const description = metaDescription(service.description);
   return {
     title: service.title,
-    description: service.description,
+    description,
     alternates: {
       canonical: `${SITE_URL}/services/${slug}`,
     },
     openGraph: {
       title: service.title,
-      description: service.description,
+      description,
       url: `${SITE_URL}/services/${slug}`,
     },
   };
@@ -106,7 +109,7 @@ export default async function ServiceDetailPage({
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li className="text-foreground">{service.title}</li>
+              <li className="text-foreground" aria-current="page">{service.title}</li>
             </ol>
           </nav>
 
@@ -193,7 +196,7 @@ export default async function ServiceDetailPage({
                 return (
                   <li key={s.slug}>
                     <Link
-                      href={`/services/${s.slug}`}
+                      href={serviceHref(s.slug)}
                       className="group flex items-center gap-3 rounded-md p-2 -ml-2 hover:bg-muted transition-colors"
                     >
                       <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
@@ -232,7 +235,7 @@ export default async function ServiceDetailPage({
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
                 href="/#contact"
-                className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-[#1D4ED8] transition-colors"
+                className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-[#1D4ED8] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Get in touch
               </Link>
