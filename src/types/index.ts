@@ -27,6 +27,25 @@ export type FaqItem = {
   answer: string;
 };
 
+export type ArticleSection = {
+  heading: string;
+  body: string[];
+  bullets?: string[];
+};
+
+export type Article = {
+  slug: string;
+  title: string;
+  description: string;
+  dek: string;
+  datePublished: string;
+  dateModified: string;
+  readMinutes: number;
+  sections: ArticleSection[];
+  faqs: FaqItem[];
+  related?: { label: string; href: string }[];
+};
+
 export type ContactFormData = {
   name: string;
   email: string;

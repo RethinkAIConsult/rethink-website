@@ -309,6 +309,33 @@ export function faqPageLd(items: { question: string; answer: string }[]) {
   };
 }
 
+export function articleLd(
+  article: {
+    title: string;
+    description: string;
+    datePublished: string;
+    dateModified: string;
+  },
+  url: string,
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline: article.title,
+    description: article.description,
+    url,
+    mainEntityOfPage: url,
+    image: `${SITE_URL}/opengraph-image`,
+    inLanguage: "en-GB",
+    datePublished: article.datePublished,
+    dateModified: article.dateModified,
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": ORG_ID },
+    isPartOf: { "@id": WEBSITE_ID },
+  };
+}
+
 // ---- Aggregate export (for pages that emit multiple schemas) ------------
 
 export { serviceSchemas };
