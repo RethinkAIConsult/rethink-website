@@ -33,7 +33,7 @@ const SERVICES_LINKS = [
 ] as const;
 
 const RESOURCES_LINKS = [
-  { label: "Free Website Assessment", href: "/assessment", external: false },
+  { label: "Free assessment call", href: "/assessment", external: false },
   { label: "LLMs.txt", href: "/llms.txt", external: true },
 ] as const;
 
