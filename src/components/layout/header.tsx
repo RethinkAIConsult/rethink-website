@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import {
   Sheet,
@@ -13,17 +14,20 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/logo";
 
 const NAV_ITEMS = [
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#work" },
-  { label: "Stack", href: "#stack" },
-  { label: "About", href: "#about" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "GEO", href: "/geo" },
+  { label: "About", href: "/#about" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Contact", href: "/#contact" },
 ] as const;
 
-const SECTION_IDS = NAV_ITEMS.map((item) => item.href.slice(1));
+// Homepage section ids we observe to highlight the in-page anchor nav items.
+const OBSERVED_SECTIONS = ["about", "faq", "contact"];
 
 export function Header() {
+  const pathname = usePathname();
+  const onHome = pathname === "/";
   const [activeSection, setActiveSection] = useState<string>("");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -37,9 +41,10 @@ export function Header() {
   }, []);
 
   useEffect(() => {
+    if (!onHome) return;
     const observers: IntersectionObserver[] = [];
 
-    for (const id of SECTION_IDS) {
+    for (const id of OBSERVED_SECTIONS) {
       const el = document.getElementById(id);
       if (!el) continue;
 
@@ -61,7 +66,17 @@ export function Header() {
         observer.disconnect();
       }
     };
-  }, []);
+  }, [onHome]);
+
+  const isActive = useCallback(
+    (href: string) => {
+      if (href.includes("#")) {
+        return onHome && activeSection === href.split("#")[1];
+      }
+      return pathname === href || pathname.startsWith(`${href}/`);
+    },
+    [onHome, activeSection, pathname]
+  );
 
   const handleNavClick = useCallback(() => {
     setOpen(false);
@@ -91,28 +106,29 @@ export function Header() {
         <ul className="hidden items-center gap-5 md:flex">
           {NAV_ITEMS.map((item) => (
             <li key={item.href}>
-              <a
+              <Link
                 href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
                 className={`border-b-2 pb-0.5 font-mono text-xs uppercase tracking-[0.12em] transition-colors duration-200 hover:text-foreground ${
-                  activeSection === item.href.slice(1)
+                  isActive(item.href)
                     ? "border-primary text-foreground"
                     : "border-transparent text-muted-foreground"
                 }`}
               >
                 {item.label}
-              </a>
+              </Link>
             </li>
           ))}
           <li>
             <ThemeToggle className="ml-1" />
           </li>
           <li>
-            <a
-              href="#contact"
+            <Link
+              href="/#contact"
               className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-[#1D4ED8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               Get in touch
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -134,27 +150,28 @@ export function Header() {
               <ul className="flex flex-col gap-2 px-4">
                 {NAV_ITEMS.map((item) => (
                   <li key={item.href}>
-                    <a
+                    <Link
                       href={item.href}
                       onClick={handleNavClick}
+                      aria-current={isActive(item.href) ? "page" : undefined}
                       className={`block px-3 py-2 font-mono text-sm uppercase tracking-[0.12em] transition-colors duration-200 hover:text-foreground ${
-                        activeSection === item.href.slice(1)
+                        isActive(item.href)
                           ? "text-foreground"
                           : "text-muted-foreground"
                       }`}
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
                 <li className="mt-1 border-t border-border pt-2">
-                  <a
-                    href="#contact"
+                  <Link
+                    href="/#contact"
                     onClick={handleNavClick}
                     className="mt-1 block rounded-md bg-primary px-3 py-2 text-center text-sm font-medium text-primary-foreground transition-colors hover:bg-[#1D4ED8]"
                   >
                     Get in touch
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </SheetContent>

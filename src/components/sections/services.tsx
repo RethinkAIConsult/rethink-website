@@ -75,7 +75,7 @@ export function Services() {
                   </p>
 
                   {/* Details */}
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground/80">
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                     {service.details}
                   </p>
 
@@ -145,7 +145,7 @@ export function Services() {
                       {featuredService.description}
                     </p>
 
-                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground/80">
+                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                       {featuredService.details}
                     </p>
                   </div>
@@ -188,6 +188,12 @@ export function Services() {
             </FadeIn>
           );
         })()}
+
+        <FadeIn delay={0.34}>
+          <div className="mt-10 text-center">
+            <ArrowLink href="/services">Explore all services</ArrowLink>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 
 const CAL_LINK = "jack-costanzi/intro-call";
@@ -10,15 +10,39 @@ const NS = "intro";
 /**
  * Inline Cal.com booking calendar embedded directly in the page (no form).
  * Uses Cal's official inline loader, which auto-resizes the iframe to its
- * content, so the page scrolls naturally with no scroll-within-scroll. Themed
- * to follow the site and branded to the site accent.
+ * content, so the page scrolls naturally with no scroll-within-scroll. The
+ * loader script is deferred behind an IntersectionObserver: the calendar sits
+ * in the last section of the page, so we only load Cal once it scrolls near the
+ * viewport rather than blocking initial render. Themed to follow the site.
  */
 export function CalEmbed() {
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme === "dark" ? "dark" : "light";
+  const containerRef = useRef<HTMLDivElement>(null);
   const embedded = useRef(false);
+  const [inView, setInView] = useState(false);
+
+  // Defer loading until the calendar is near the viewport.
+  useEffect(() => {
+    if (inView) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [inView]);
 
   useEffect(() => {
+    if (!inView) return;
+
     // Official Cal.com embed loader (namespaced).
     (function (C: any, A: string, L: string) {
       const p = function (a: any, ar: any) {
@@ -74,7 +98,15 @@ export function CalEmbed() {
         dark: { "cal-brand": "#2563EB" },
       },
     });
-  }, [theme]);
+  }, [inView, theme]);
 
-  return <div id="cal-inline" style={{ width: "100%", minHeight: 520 }} />;
+  return (
+    <div
+      ref={containerRef}
+      id="cal-inline"
+      role="region"
+      aria-label="Booking calendar"
+      style={{ width: "100%", minHeight: 520 }}
+    />
+  );
 }

@@ -131,9 +131,12 @@ export function CaseStudies() {
           ))}
         </div>
 
-        <p className="mt-10 text-center font-mono text-xs text-muted-foreground/70">
-          Client names withheld under NDA. We will walk through the specifics on a call.
-        </p>
+        <div className="mt-10 flex flex-col items-center gap-4">
+          <ArrowLink href="/work">See all work</ArrowLink>
+          <p className="text-center font-mono text-xs text-muted-foreground">
+            Client names withheld under NDA. We will walk through the specifics on a call.
+          </p>
+        </div>
 
       </div>
     </section>

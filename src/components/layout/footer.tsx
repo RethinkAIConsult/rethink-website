@@ -1,4 +1,5 @@
 import type { SVGProps } from "react";
+import Link from "next/link";
 import { Logo } from "@/components/logo";
 
 function GitHubIcon(props: SVGProps<SVGSVGElement>) {
@@ -18,22 +19,22 @@ function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
 }
 
 const COMPANY_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Work", href: "#work" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/#about" },
+  { label: "Work", href: "/work" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Contact", href: "/#contact" },
 ] as const;
 
 const SERVICES_LINKS = [
-  { label: "AI Automation Pipelines", href: "#services" },
-  { label: "Custom AI Agents", href: "#services" },
-  { label: "Full-Stack Applications", href: "#services" },
-  { label: "Tech Stack Audit", href: "#stack" },
+  { label: "All Services", href: "/services" },
+  { label: "AI Automation Pipelines", href: "/services/ai-automation-pipelines" },
+  { label: "Custom AI Agents", href: "/services/custom-ai-agents" },
+  { label: "GEO and AI Visibility", href: "/geo" },
 ] as const;
 
 const RESOURCES_LINKS = [
-  { label: "Free Website Assessment", href: "/assessment" },
-  { label: "LLMs.txt", href: "/llms.txt" },
+  { label: "Free Website Assessment", href: "/assessment", external: false },
+  { label: "LLMs.txt", href: "/llms.txt", external: true },
 ] as const;
 
 const SOCIAL_LINKS = [
@@ -49,6 +50,9 @@ const SOCIAL_LINKS = [
   },
 ] as const;
 
+const linkClass =
+  "text-sm text-muted-foreground transition-colors hover:text-foreground";
+
 export function Footer() {
   return (
     <footer className="border-t border-border bg-background" aria-label="Site footer">
@@ -59,13 +63,13 @@ export function Footer() {
 
           {/* Brand column */}
           <div>
-            <a
-              href="#hero"
+            <Link
+              href="/"
               className="inline-block transition-opacity hover:opacity-80"
               aria-label="RethinkAI, back to top"
             >
               <Logo />
-            </a>
+            </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
               Senior AI engineering. We build production pipelines, custom agents, and full-stack applications that give your team back the time they should never have lost.
             </p>
@@ -93,12 +97,9 @@ export function Footer() {
             <ul className="mt-4 space-y-3">
               {COMPANY_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
+                  <Link href={link.href} className={linkClass}>
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -112,12 +113,9 @@ export function Footer() {
             <ul className="mt-4 space-y-3">
               {SERVICES_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
+                  <Link href={link.href} className={linkClass}>
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -131,12 +129,15 @@ export function Footer() {
             <ul className="mt-4 space-y-3">
               {RESOURCES_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </a>
+                  {link.external ? (
+                    <a href={link.href} className={linkClass}>
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link href={link.href} className={linkClass}>
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 
 export type Service = {
+  slug: string;
   title: string;
   description: string;
   details: string;
@@ -10,6 +11,7 @@ export type Service = {
 };
 
 export type CaseStudy = {
+  slug: string;
   title: string;
   subtitle: string;
   sector: string;

@@ -4,13 +4,13 @@ import { ArrowLink } from "@/components/arrow-link";
 const ROWS = [
   {
     label: "Time to production",
-    studio: "Shipped to production in 2 to 4 weeks",
+    studio: "Shipped to production in 2 to 8 weeks",
     inhouse: "90 to 120 days to hire a senior AI engineer",
   },
   {
     label: "Commercial model",
     studio: "One fixed project price, no overruns",
-    inhouse: "A six figure salary plus recruitment fees and overhead, before a line of code",
+    inhouse: "A six-figure salary plus recruitment fees and overhead, before a line of code",
   },
   {
     label: "What you own",
@@ -50,7 +50,7 @@ export function Comparison() {
               </div>
               <div className="hidden sm:flex items-center gap-2 px-5">
                 <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                  In house hire
+                  In-house hire
                 </span>
               </div>
             </div>
@@ -82,7 +82,7 @@ export function Comparison() {
                   {/* In-house cell */}
                   <div className="rounded-lg border border-border bg-card p-5">
                     <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2 sm:hidden">
-                      In house hire
+                      In-house hire
                     </p>
                     <p className="text-sm leading-relaxed text-muted-foreground">
                       {row.inhouse}
