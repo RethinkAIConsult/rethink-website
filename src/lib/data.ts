@@ -13,6 +13,7 @@ export const BOOKING_URL = "https://cal.com/jack-costanzi/intro-call";
 
 export const SERVICES: Service[] = [
   {
+    slug: "ai-automation-pipelines",
     title: "AI Automation Pipelines",
     description:
       "Your team is copying data between systems by hand, updating the CRM from spreadsheets, and rebuilding the same report every Friday. We turn those multi step manual processes into event driven pipelines that run without supervision: CRM enrichment, weekly reporting packs, invoice and document processing, lead routing, and data sync across the tools you already use.",
@@ -28,6 +29,7 @@ export const SERVICES: Service[] = [
     techBadges: ["Inngest", "n8n", "PostgreSQL", "Webhooks"],
   },
   {
+    slug: "custom-ai-agents",
     title: "Custom AI Agents",
     description:
       "Not chatbots. Agents that do real multi step work: lead qualification, analyst research, document classification, support triage, and data extraction. Built on Claude, GPT, and purpose fit models, they decide and act within the guardrails you set.",
@@ -43,6 +45,7 @@ export const SERVICES: Service[] = [
     techBadges: ["Claude", "GPT", "AgentKit", "TypeScript"],
   },
   {
+    slug: "full-stack-web-applications",
     title: "Full-Stack Web Applications",
     description:
       "Production platforms on Next.js, React 19, and PostgreSQL. SaaS products, internal tools, client portals. Real code shipped to real users.",
@@ -58,6 +61,7 @@ export const SERVICES: Service[] = [
     techBadges: ["Next.js", "React 19", "TypeScript", "PostgreSQL"],
   },
   {
+    slug: "strategy-and-audit",
     title: "Strategy and Audit",
     description:
       "We map your operations, score every process for automation potential, and hand back a ranked roadmap before a single line of code is written. And if you have already bought AI tools but are not seeing results, we audit the stack you have, find the gaps, and hand back a ranked plan for what to fix first.",
@@ -73,6 +77,7 @@ export const SERVICES: Service[] = [
     techBadges: ["Process Design", "ROI Analysis", "Strategy"],
   },
   {
+    slug: "geo-and-ai-visibility",
     title: "GEO and AI Visibility",
     description:
       "Your buyers now ask ChatGPT, Claude, Perplexity, and Google AI Overviews who to hire. We make sure the answer is you.",
@@ -91,6 +96,7 @@ export const SERVICES: Service[] = [
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
+    slug: "analyst-intelligence-platform",
     title: "Analyst Intelligence Platform",
     subtitle: "120+ analyst hours automated every month",
     sector: "Insurance",
@@ -106,6 +112,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
+    slug: "crm-enrichment-engine",
     title: "CRM Enrichment Engine",
     subtitle: "12,000 records enriched weekly without manual input",
     sector: "B2B SaaS",
@@ -121,6 +128,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
+    slug: "operations-saas-platform",
     title: "Operations SaaS Platform",
     subtitle: "From spreadsheets to a production SaaS in six weeks",
     sector: "Service business",
@@ -166,7 +174,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "How does this compare to hiring in-house?",
     answer:
-      "Hiring a senior AI or automation engineer in the UK typically takes 90 to 120 days, costs a six figure salary before recruitment fees and overhead, and most teams need two or three hires before they ship anything to production. We start in 2 to 4 weeks, put working software in front of you in the first week or two, and hand you a complete system for a fixed price. Many clients use us to ship the first build while they hire alongside, so they are not blocked waiting for headcount. If hiring really is the right move for your situation, we will tell you.",
+      "Hiring a senior AI or automation engineer in the UK typically takes 90 to 120 days, costs a six-figure salary before recruitment fees and overhead, and most teams need two or three hires before they ship anything to production. We start in 2 to 4 weeks, put working software in front of you in the first week or two, and hand you a complete system for a fixed price. Many clients use us to ship the first build while they hire alongside, so they are not blocked waiting for headcount. If hiring really is the right move for your situation, we will tell you.",
   },
   {
     question: "We already use Zapier, Make, or n8n. Why would we need you?",

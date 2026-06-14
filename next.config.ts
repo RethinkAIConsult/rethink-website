@@ -39,6 +39,17 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      // The GEO service lives at /geo (its flagship page), so the generic
+      // service detail path redirects there to keep a single canonical URL.
+      {
+        source: "/services/geo-and-ai-visibility",
+        destination: "/geo",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

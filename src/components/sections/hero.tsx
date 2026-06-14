@@ -259,7 +259,7 @@ export function Hero() {
                     <CountUp value={8} /><span className="text-primary">+</span>
                     <span className="text-sm text-muted-foreground ml-1">yrs</span>
                   </p>
-                  <p className="mt-1 font-mono text-[10px] text-muted-foreground/70 uppercase tracking-wider">
+                  <p className="mt-1 font-mono text-[10px] text-muted-foreground uppercase tracking-wider">
                     3+ years shipping production AI
                   </p>
                 </div>
@@ -274,7 +274,7 @@ export function Hero() {
                   <p className="metric mt-2 text-2xl font-semibold tracking-tight text-foreground">
                     Week <span className="text-primary">1</span>
                   </p>
-                  <p className="mt-1 font-mono text-[10px] text-muted-foreground/70 uppercase tracking-wider">
+                  <p className="mt-1 font-mono text-[10px] text-muted-foreground uppercase tracking-wider">
                     Not month three
                   </p>
                 </div>
@@ -289,7 +289,7 @@ export function Hero() {
                   <p className="metric mt-2 text-2xl font-semibold tracking-tight text-foreground">
                     <CountUp value={200} /><span className="text-primary">+</span>
                   </p>
-                  <p className="mt-1 font-mono text-[10px] text-muted-foreground/70 uppercase tracking-wider">
+                  <p className="mt-1 font-mono text-[10px] text-muted-foreground uppercase tracking-wider">
                     Autonomous, multi-step, across client stacks
                   </p>
                 </div>
@@ -299,7 +299,7 @@ export function Hero() {
 
           {/* Trust / credibility line */}
           <FadeIn delay={0.38}>
-            <p className="mt-8 text-sm text-muted-foreground/80">
+            <p className="mt-8 text-sm text-muted-foreground">
               Built by engineers who ship production AI, not consultants with slide decks.
             </p>
           </FadeIn>
@@ -308,7 +308,7 @@ export function Hero() {
         {/* Right column: full code panel, desktop only (hidden on mobile) */}
         <div className="min-w-0 hidden lg:block">
           <HeroCodePanel animate reduced={reduced} />
-          <p className="mt-3 text-center font-mono text-[11px] text-muted-foreground/70">
+          <p className="mt-3 text-center font-mono text-[11px] text-muted-foreground">
             A real RethinkAI pipeline: it researches, scores, and drafts outreach on its own.
           </p>
         </div>

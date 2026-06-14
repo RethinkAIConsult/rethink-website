@@ -1,11 +1,19 @@
 import { FAQ_ITEMS, SERVICES } from "@/lib/data";
-
-const SITE_URL = "https://rethinkaiconsult.com";
+import { SITE_URL, CONTENT_UPDATED, CONTENT_PUBLISHED, serviceHref } from "@/lib/site";
+import type { Service } from "@/types";
 
 // Stable @id anchors
 const ORG_ID = `${SITE_URL}/#organization`;
 const PERSON_ID = `${SITE_URL}/#jack-costanzi`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
+
+// External profiles that corroborate the RethinkAI entity. Add only real, owned
+// profiles: AI answer engines triangulate trust across independent sources, so
+// the goal here is to grow this list (LinkedIn company, Crunchbase) over time.
+const ORG_SAME_AS = [
+  "https://github.com/RethinkAIConsult",
+  "https://x.com/rethinkaiconsult",
+];
 
 // ---- Organization -------------------------------------------------------
 
@@ -24,7 +32,7 @@ export const organizationSchema = {
   founder: { "@id": PERSON_ID },
   description:
     "RethinkAI Consult is an AI engineering studio that builds production automation pipelines, custom AI agents, and full-stack applications for ambitious teams. We replace manual processes with systems that scale.",
-  sameAs: ["https://github.com/RethinkAIConsult"],
+  sameAs: ORG_SAME_AS,
   areaServed: [
     { "@type": "Country", name: "United Kingdom" },
     { "@type": "Country", name: "United States" },
@@ -48,6 +56,7 @@ export const organizationSchema = {
     "Full-Stack Web Development",
     "SaaS Platform Development",
     "Business Process Automation",
+    "Generative Engine Optimisation",
   ],
   contactPoint: {
     "@type": "ContactPoint",
@@ -86,18 +95,23 @@ export const personSchema = {
 
 // ---- Per-service schemas -------------------------------------------------
 
-const serviceSchemas = SERVICES.map((service) => ({
-  "@context": "https://schema.org",
-  "@type": "Service",
-  name: service.title,
-  description: service.description,
-  provider: { "@id": ORG_ID },
-  areaServed: [
-    { "@type": "Country", name: "United Kingdom" },
-    { "@type": "Country", name: "United States" },
-  ],
-  serviceType: "AI Engineering Consulting",
-}));
+const serviceSchemas = SERVICES.map((service) => {
+  const url = `${SITE_URL}${serviceHref(service.slug)}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: service.title,
+    description: service.description,
+    url,
+    provider: { "@id": ORG_ID },
+    areaServed: [
+      { "@type": "Country", name: "United Kingdom" },
+      { "@type": "Country", name: "United States" },
+    ],
+    serviceType: "AI Engineering Consulting",
+  };
+});
 
 // ---- ProfessionalService with hasOfferCatalog ---------------------------
 
@@ -120,6 +134,7 @@ export const professionalServiceSchema = {
     "Full-Stack Web Application Development",
     "Data Pipeline Engineering",
     "Business Process Automation Consulting",
+    "Generative Engine Optimisation",
   ],
   areaServed: [
     { "@type": "Country", name: "United Kingdom" },
@@ -140,6 +155,7 @@ export const professionalServiceSchema = {
     "LLM Engineering",
     "AI Agents",
     "Event-driven Architecture",
+    "Generative Engine Optimisation",
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -151,6 +167,7 @@ export const professionalServiceSchema = {
         "@type": "Service",
         name: service.title,
         description: service.description,
+        url: `${SITE_URL}${serviceHref(service.slug)}`,
         provider: { "@id": ORG_ID },
       },
       priceSpecification: {
@@ -161,7 +178,7 @@ export const professionalServiceSchema = {
     })),
   },
   founder: { "@id": PERSON_ID },
-  sameAs: ["https://github.com/RethinkAIConsult"],
+  sameAs: ORG_SAME_AS,
 };
 
 // ---- WebSite ------------------------------------------------------------
@@ -211,6 +228,8 @@ export const webPageSchema = {
     name: "AI Automation Engineering",
   },
   provider: { "@id": ORG_ID },
+  datePublished: CONTENT_PUBLISHED,
+  dateModified: CONTENT_UPDATED,
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -223,6 +242,72 @@ export const webPageSchema = {
     ],
   },
 };
+
+// ---- Reusable builders for sub-pages ------------------------------------
+// Sub-pages (services, work, geo) call these so every route emits a consistent,
+// dated, entity-linked graph without copy-pasting the boilerplate.
+
+export function breadcrumbSchema(items: { name: string; url: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+export function serviceLd(service: Service, url: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: service.title,
+    description: service.description,
+    url,
+    provider: { "@id": ORG_ID },
+    areaServed: [
+      { "@type": "Country", name: "United Kingdom" },
+      { "@type": "Country", name: "United States" },
+    ],
+    serviceType: "AI Engineering Consulting",
+  };
+}
+
+export function webPageLd(opts: {
+  name: string;
+  description: string;
+  url: string;
+  type?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": opts.type ?? "WebPage",
+    name: opts.name,
+    description: opts.description,
+    url: opts.url,
+    inLanguage: "en-GB",
+    isPartOf: { "@id": WEBSITE_ID },
+    provider: { "@id": ORG_ID },
+    datePublished: CONTENT_PUBLISHED,
+    dateModified: CONTENT_UPDATED,
+  };
+}
+
+export function faqPageLd(items: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
+}
 
 // ---- Aggregate export (for pages that emit multiple schemas) ------------
 
