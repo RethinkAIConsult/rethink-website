@@ -6,6 +6,7 @@ interface CountUpProps {
   value: number;
   decimals?: number;
   duration?: number;
+  separator?: boolean;
   className?: string;
 }
 
@@ -14,10 +15,19 @@ interface CountUpProps {
  * Server-renders the FINAL value (SEO and no-JS safe); the animation only
  * kicks in client-side, and not at all under prefers-reduced-motion.
  */
+function formatNumber(n: number, decimals: number, separator: boolean): string {
+  const fixed = n.toFixed(decimals);
+  if (!separator) return fixed;
+  const [integer, fraction] = fixed.split(".");
+  const withCommas = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return fraction !== undefined ? `${withCommas}.${fraction}` : withCommas;
+}
+
 export function CountUp({
   value,
   decimals = 0,
   duration = 1100,
+  separator = false,
   className,
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -51,7 +61,7 @@ export function CountUp({
 
   return (
     <span ref={ref} className={className}>
-      {display.toFixed(decimals)}
+      {formatNumber(display, decimals, separator)}
     </span>
   );
 }

@@ -1,6 +1,6 @@
 # RethinkAI Consult
 
-Last updated: 2026-06-11
+Last updated: 2026-06-13
 
 > AI engineering studio that builds production automation pipelines, custom AI agents, and full-stack applications for SMBs and scale-ups.
 
@@ -23,8 +23,10 @@ We map client workflows, identify automation opportunities, score each by return
 ## Proof
 
 - A national insurance brokerage automated more than 120 hours per month of manual analyst reporting; the weekly reporting pack now builds itself overnight.
-- One engagement put more than 30 production AI agents into a company's operations, covering research, classification, and outreach.
+- Across engagements, RethinkAI has put hundreds of agentic AI agents into production, covering research, classification, scoring, and outreach.
 - A CRM enrichment engine for a B2B SaaS company processes roughly 12,000 records per week with no manual intervention, achieving 88 percent recall on AI signal extraction benchmarked against a held-out test set.
+
+Client names are held under NDA. The outcomes above are representative and anonymised.
 
 ## Technology stack
 
@@ -38,7 +40,7 @@ We map client workflows, identify automation opportunities, score each by return
 
 ## Who we are
 
-RethinkAI Consult was founded by Jack Costanzi, an AI automation engineer. We operate as a focused engineering studio: small, senior, and delivery-oriented. We do not subcontract to junior developers. Every engagement is scoped to a fixed price with defined deliverables and a production-ready outcome.
+RethinkAI Consult was founded by Jack Costanzi, who has spent eight years in engineering and automation, the last three building production AI systems, and holds a First Class MEng from the University of Warwick. We operate as a focused engineering studio: small, senior, and delivery-oriented. We do not subcontract to junior developers. Every engagement is scoped to a fixed price with defined deliverables and a production-ready outcome.
 
 ## Engagement model
 

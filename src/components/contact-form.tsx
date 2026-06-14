@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Mail, Calendar, CheckCircle } from "lucide-react";
 import type { ContactFormData, ContactFormState } from "@/types";
 
 const BUDGET_OPTIONS = [
@@ -41,7 +42,37 @@ const inputClass =
 const selectClass =
   "flex h-11 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-primary";
 
-export function ContactForm() {
+function Spinner() {
+  return (
+    <svg
+      className="h-4 w-4 animate-spin"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <circle
+        className="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <path
+        className="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+      />
+    </svg>
+  );
+}
+
+interface ContactFormProps {
+  bookingUrl?: string;
+}
+
+export function ContactForm({ bookingUrl }: ContactFormProps) {
   const [form, setForm] = useState<ContactFormData>(INITIAL_FORM);
   const [state, setState] = useState<ContactFormState>({
     status: "idle",
@@ -81,6 +112,7 @@ export function ContactForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (state.status === "submitting") return;
     if (!validate()) return;
 
     setState({ status: "submitting", message: "" });
@@ -107,6 +139,47 @@ export function ContactForm() {
       toast.error(message);
     }
   }
+
+  if (state.status === "success") {
+    return (
+      <div
+        role="status"
+        aria-live="polite"
+        className="flex flex-col items-center gap-5 py-4 text-center"
+      >
+        <CheckCircle className="h-10 w-10 text-primary" aria-hidden="true" />
+        <div>
+          <p className="text-base font-semibold text-foreground">Message received. Thank you.</p>
+          <p className="mt-1.5 text-sm text-muted-foreground max-w-[30rem]">
+            We will reply within 24 hours with an honest read on whether we can help. In the meantime, you are welcome to book a call directly or reach out by email.
+          </p>
+        </div>
+        <div className="flex flex-col sm:flex-row items-center gap-3 mt-1">
+          {bookingUrl ? (
+            <a
+              href={bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <Calendar className="h-4 w-4" aria-hidden="true" />
+              Book a 20-minute intro call
+            </a>
+          ) : (
+            <a
+              href="mailto:jack@rethinkaiconsult.com"
+              className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+            >
+              <Mail className="h-4 w-4" aria-hidden="true" />
+              jack@rethinkaiconsult.com
+            </a>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  const isSubmitting = state.status === "submitting";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6" noValidate>
@@ -239,13 +312,27 @@ export function ContactForm() {
         </select>
       </div>
 
+      {state.status === "error" && state.message && (
+        <p className="text-sm text-destructive" role="alert">
+          {state.message}
+        </p>
+      )}
+
       <Button
         type="submit"
         size="lg"
         className="h-11 w-full sm:w-auto"
-        disabled={state.status === "submitting"}
+        disabled={isSubmitting}
+        aria-disabled={isSubmitting}
       >
-        {state.status === "submitting" ? "Sending..." : "Send message"}
+        {isSubmitting ? (
+          <span className="inline-flex items-center gap-2">
+            <Spinner />
+            Sending
+          </span>
+        ) : (
+          "Send message"
+        )}
       </Button>
     </form>
   );

@@ -12,6 +12,9 @@ export type Service = {
 export type CaseStudy = {
   title: string;
   subtitle: string;
+  sector: string;
+  metric?: { value: number; unit?: string; label: string; separator?: boolean };
+  testimonial?: { quote: string; attribution: string };
   description: string;
   tags: string[];
   results: string[];

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import { Menu } from "lucide-react";
 import {
   Sheet,
@@ -10,7 +11,6 @@ import {
 } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/logo";
-import { ArrowLink } from "@/components/arrow-link";
 
 const NAV_ITEMS = [
   { label: "Services", href: "#services" },
@@ -79,13 +79,13 @@ export function Header() {
         className="mx-auto flex h-16 max-w-none items-center justify-between px-4 sm:px-6 lg:px-8"
         aria-label="Main navigation"
       >
-        <a
-          href="#hero"
+        <Link
+          href="/"
           className="transition-opacity hover:opacity-80"
           aria-label="RethinkAI, back to top"
         >
           <Logo />
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-5 md:flex">
@@ -93,10 +93,10 @@ export function Header() {
             <li key={item.href}>
               <a
                 href={item.href}
-                className={`font-mono text-xs uppercase tracking-[0.12em] transition-colors duration-200 hover:text-foreground ${
+                className={`border-b-2 pb-0.5 font-mono text-xs uppercase tracking-[0.12em] transition-colors duration-200 hover:text-foreground ${
                   activeSection === item.href.slice(1)
-                    ? "text-foreground"
-                    : "text-muted-foreground"
+                    ? "border-primary text-foreground"
+                    : "border-transparent text-muted-foreground"
                 }`}
               >
                 {item.label}
@@ -105,11 +105,6 @@ export function Header() {
           ))}
           <li>
             <ThemeToggle className="ml-1" />
-          </li>
-          <li>
-            <ArrowLink href="/assessment" tone="default" className="font-mono text-xs uppercase tracking-[0.12em]">
-              Free assessment
-            </ArrowLink>
           </li>
           <li>
             <a
@@ -153,15 +148,6 @@ export function Header() {
                   </li>
                 ))}
                 <li className="mt-1 border-t border-border pt-2">
-                  <a
-                    href="/assessment"
-                    onClick={handleNavClick}
-                    className="block px-3 py-2 font-mono text-sm uppercase tracking-[0.12em] text-muted-foreground transition-colors duration-200 hover:text-foreground"
-                  >
-                    Free assessment
-                  </a>
-                </li>
-                <li>
                   <a
                     href="#contact"
                     onClick={handleNavClick}
