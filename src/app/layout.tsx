@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SkipToContent } from "@/components/layout/skip-to-content";
+import { FloatingCta } from "@/components/floating-cta";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import {
@@ -135,6 +136,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <FloatingCta />
           <Toaster />
         </ThemeProvider>
         <Analytics />
