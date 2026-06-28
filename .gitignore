@@ -42,3 +42,15 @@ next-env.d.ts
 
 # clerk configuration (can include secrets)
 /.clerk/
+
+# session artifacts (screenshots, mockups, local tooling) — not part of the app
+*.png
+*.jpeg
+*.jpg
+/scripts/
+/.playwright-mcp/
+/.claude/
+/mockups/
+*.pdf
+outbound-plan.html
+mockups/outbound-list.html
