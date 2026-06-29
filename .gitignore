@@ -47,7 +47,7 @@ next-env.d.ts
 *.png
 *.jpeg
 *.jpg
-/scripts/
+/scripts/_*.mjs
 /.playwright-mcp/
 /.claude/
 /mockups/

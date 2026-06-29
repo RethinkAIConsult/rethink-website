@@ -13,11 +13,11 @@ export type AngleResult = {
   closingInvite: string;
 };
 
-const SYS = `You research a company and write a LinkedIn connection angle for Jack Costanzi, founder of RethinkAI, a SOLO UK AI-automation consultant. Jack builds production AI automation + custom AI agents that WRAP a company's existing tools (CRM, ERP, spreadsheets) instead of replacing them, as fixed-scope projects, positioned as the alternative to hiring an AI engineer. He opens with value: a free "AI Stack Review" naming the single highest-leverage thing to automate first.
+const SYS = `You research a company and write a LinkedIn connection angle for Jack Costanzi, founder of RethinkAI, a SOLO UK AI engineering and automation consultant. Jack ships production AI for companies: for TECH product companies he builds AI features, agents and models into their product as senior AI engineering help without a full-time hire; for non-tech operating companies he builds AI automation that wraps their existing tools (CRM, ERP, spreadsheets). Fixed-scope projects or ongoing advisory.
 
 From the research, return:
 - summary: 1 to 2 sentences on what the company actually does.
-- painHook: the single most likely MANUAL, repetitive operational pain for a business like this, described QUALITATIVELY (the actual process and the manual work involved, e.g. re-keying data between systems, manual scheduling and dispatch, chasing approvals, assembling reports by hand). Specific to their industry and business model. Do NOT cite revenue, employee counts, founding years, or ANY number unless it appears verbatim in the research.
+- painHook: the single most likely operational OR engineering pain for a business like this, described QUALITATIVELY. For a non-tech operating company, the manual repetitive work (re-keying data between systems, manual scheduling and dispatch, chasing approvals, assembling reports by hand). For a tech product company, an AI or engineering stretch (a model or feature that needs senior help, a data pipeline, scaling an ML workflow, an AI capability they are clearly building toward). Specific to their business model. Do NOT cite revenue, employee counts, founding years, or ANY number unless it appears verbatim in the research.
 - angle: the single most UNIQUE, specific, surprising thing about this company or person to lead with, in a few words (a personal background fact about them, an unusual origin or pivot, a notable specific project, a distinctive niche almost no competitor has, a recent move). NOT a generic fact anyone could guess (services they offer, founding year alone). Use only what the research supports; if nothing distinctive exists, say the most specific real thing you found.
 - connectNote: the short note attached to a LinkedIn connection request. Write it AS Jack himself, a sharp, busy UK guy saying hi to a peer whose business he finds genuinely interesting. NOT a marketer, NOT AI, NOT outreach software. Its only job is to get accepted; the pitch comes later. RULES:
   * Structure it in two parts:
@@ -53,11 +53,16 @@ export async function verifyBuyers(
 ): Promise<boolean[]> {
   if (!people.length) return [];
   const list = people.map((p, i) => `[${i}] ${p.company} (role: ${p.title})`).join("\n");
-  const SYS = `You filter outbound targets for a solo AI-automation consultant whose clients are FOR-PROFIT, NON-TECH OPERATING companies that need automation but cannot build it.
-DROP (keep=false) when the company is clearly EITHER:
-  (1) a software/SaaS/IT/tech-product company, an AI/automation/RPA/"RevOps" vendor, an agency, a management consultancy, or a staffing/recruiting firm — it sells tech or would compete with the consultant. If it looks tech-ish or like a vendor/agency and you are unsure, DROP; OR
-  (2) a CLEAR non-profit or public body: charity, foundation, NGO, religious organisation, school/college/university, government/public-sector, or trade association — judge from clear name signals like "Foundation", "Charity", "Trust", "University", "Church", "Council", "Department of".
-KEEP (keep=true) any real FOR-PROFIT operating company: insurance, finance, logistics, healthcare INCLUDING private clinics, therapy practices, medical/dental practices and care providers, retail, real estate, professional services, manufacturing, hospitality, construction, etc. If it is an ordinary operating business and you are merely unsure whether it might be non-profit, LEAN KEEP.
+  const SYS = `You filter outbound targets for a solo AI ENGINEERING and automation consultant. Clients include TECH PRODUCT companies (like a fraud/risk-decisioning platform and a property-tech portal) as well as non-tech operating companies. The ideal client is a real company with budget and a genuine need for senior AI engineering or automation help it cannot fully staff in-house.
+The key test: a company that USES or BUILDS AI in its own product or operations is a BUYER (keep); a company that SELLS AI/automation/development services to others is a COMPETITOR (drop).
+DROP (keep=false) when the company is clearly ANY of:
+  (1) a COMPETITOR or reseller of the same service: an AI/ML/automation/RPA/"RevOps" consultancy or agency, a software-development shop or digital agency, an IT-services firm or systems integrator, an outsourcing/offshore dev shop, a staffing/recruiting firm, or a management/marketing consultancy. If it clearly SELLS dev/AI/automation services to others and you are unsure, DROP.
+  (2) a CONSUMER-FACING or low-complexity small business that is a poor fit: single-location or small restaurants, cafes, bars, food service, retail stores and shops, consumer e-commerce, salons, spas, gyms and fitness, personal or consumer services, and tiny owner-operator trades (a single-crew roofer, plumber, electrician, or landscaper).
+  (3) a non-profit or public body: charity, foundation, NGO, religious organisation, school/college/university, government/public-sector, or trade association (signals like "Foundation", "Charity", "University", "Church", "Council", "Department of").
+KEEP (keep=true):
+  - TECH PRODUCT companies that build and run their own product and would hire AI engineering help: SaaS platforms, fintech, insurtech, proptech, healthtech, marketplaces, and data or AI-driven products. (A fraud/risk decisioning platform or a property portal is a KEEP.) Remember: a product company that USES AI is a buyer; one that SELLS AI/dev services is a competitor (drop).
+  - NON-TECH operating companies with real operational complexity: insurance and brokerages, finance, lending and credit, logistics, freight, 3PL, distribution and wholesale, healthcare practices and multi-site care groups, professional services (legal, accounting, engineering firms), property and facilities management, and manufacturing.
+If it is a real operating or product business and you are merely unsure, LEAN KEEP.
 Judge from the company name and the person's title.`;
   const SCHEMA = {
     type: "object",

@@ -41,12 +41,20 @@ export async function apolloLists(): Promise<ApolloList[]> {
 // full name + LinkedIn (costs ~1 credit per person). The ICP filters live here.
 const ICP_SEARCH = {
   person_titles: [
+    // ops + exec buyers (mostly non-tech operating companies)
     "Chief Operating Officer", "COO", "Head of Operations", "VP of Operations",
     "Director of Operations", "Operations Director", "Head of Business Operations",
     "Founder", "Co-Founder", "CEO",
+    // tech buyers (AI engineering help at product companies like Oscilar / Zoopla)
+    "Chief Technology Officer", "CTO", "VP of Engineering", "Head of Engineering",
+    "Head of AI", "Head of Machine Learning", "Head of Data",
   ],
   person_locations: ["United States", "United Kingdom"],
-  organization_num_employees_ranges: ["11,50", "51,100", "101,150"],
+  // 50-200 is the retainer sweet spot: enough back-office operational complexity
+  // and budget to need automation, small enough to lack an in-house eng team.
+  // Floor raised from 11 because Apollo over-tags tiny shops (5-person pizza
+  // places) as "11-50", which polluted the queue.
+  organization_num_employees_ranges: ["51,100", "101,200"],
 };
 
 export type MaskedPerson = { id: string; firstName: string; title: string; company: string; website?: string };
