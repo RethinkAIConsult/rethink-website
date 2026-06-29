@@ -24,6 +24,9 @@ export type OutreachRow = {
   pain_hook: string | null;
   angle: string | null;
   connect_note: string | null;
+  company_type: string | null;
+  industry: string | null;
+  hq_location: string | null;
   status: string;
   source: string | null;
   created_at: string;
@@ -66,8 +69,8 @@ export async function researchAndSave(input: {
 
   const row = await queryOne<OutreachRow>(
     `INSERT INTO outreach_research
-       (contact_name, contact_title, company_name, company_url, linkedin_url, research_summary, pain_hook, angle, connect_note, status, source)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,'ready','manual')
+       (contact_name, contact_title, company_name, company_url, linkedin_url, research_summary, pain_hook, angle, connect_note, company_type, industry, hq_location, status, source)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,'ready','manual')
      RETURNING *`,
     [
       input.name.trim(),
@@ -79,6 +82,9 @@ export async function researchAndSave(input: {
       a.painHook,
       a.angle,
       a.connectNote,
+      a.companyType,
+      a.industry || null,
+      a.hqLocation || null,
     ],
   );
 
@@ -363,8 +369,8 @@ export async function ensureBuffer(
             companyUrl: p.company_url ?? undefined,
           });
           await query(
-            "UPDATE outreach_research SET research_summary=$1, pain_hook=$2, angle=$3, connect_note=$4, status='ready' WHERE id=$5",
-            [a.summary, a.painHook, a.angle, a.connectNote, p.id],
+            "UPDATE outreach_research SET research_summary=$1, pain_hook=$2, angle=$3, connect_note=$4, company_type=$6, industry=$7, hq_location=$8, status='ready' WHERE id=$5",
+            [a.summary, a.painHook, a.angle, a.connectNote, p.id, a.companyType, a.industry || null, a.hqLocation || null],
           );
           researched++;
         } catch {
@@ -464,4 +470,39 @@ export async function getFunnel(): Promise<Record<string, number>> {
   );
   map["sent_today"] = Number(sentToday?.n ?? 0);
   return map;
+}
+
+export type IcpInsightRow = {
+  company_type: string;
+  industry: string;
+  sent: number;
+  replied: number;
+  won: number;
+};
+
+// ICP learning: for every segment we have actually CONTACTED, how many replied
+// and signed. As outcomes accrue, the winning segments surface so the ICP can
+// be tuned from real conversion data rather than assumptions.
+export async function getIcpInsights(): Promise<IcpInsightRow[]> {
+  if (!hasDb()) return [];
+  const rows = await query<{ company_type: string; industry: string; sent: string; replied: string; won: string }>(
+    `SELECT
+       COALESCE(company_type, 'unknown') AS company_type,
+       COALESCE(NULLIF(industry, ''), 'unknown') AS industry,
+       count(*) FILTER (WHERE status IN ('connect_sent','connected','replied','call_booked','won')) AS sent,
+       count(*) FILTER (WHERE status IN ('replied','call_booked','won')) AS replied,
+       count(*) FILTER (WHERE status = 'won') AS won
+     FROM outreach_research
+     GROUP BY company_type, COALESCE(NULLIF(industry, ''), 'unknown')
+     HAVING count(*) FILTER (WHERE status IN ('connect_sent','connected','replied','call_booked','won')) > 0
+     ORDER BY won DESC, replied DESC, sent DESC
+     LIMIT 40`,
+  );
+  return rows.map((r) => ({
+    company_type: r.company_type,
+    industry: r.industry,
+    sent: Number(r.sent),
+    replied: Number(r.replied),
+    won: Number(r.won),
+  }));
 }
