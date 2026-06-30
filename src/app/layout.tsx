@@ -3,10 +3,8 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { SkipToContent } from "@/components/layout/skip-to-content";
-import { FloatingCta } from "@/components/floating-cta";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import {
@@ -133,10 +131,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SkipToContent />
-          <Header />
-          {children}
-          <Footer />
-          <FloatingCta />
+          <SiteChrome>{children}</SiteChrome>
           <Toaster />
         </ThemeProvider>
         <Analytics />

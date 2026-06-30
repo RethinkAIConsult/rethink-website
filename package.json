@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:all": "node scripts/dev-all.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "discover": "node scripts/pipeline.mjs",
+    "discover:run": "node scripts/pipeline.mjs --apply"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.99.0",
