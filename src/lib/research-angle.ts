@@ -24,18 +24,18 @@ From the research, return:
 - summary: 1 to 2 sentences on what the company actually does.
 - painHook: the single most likely operational OR engineering pain for a business like this, described QUALITATIVELY. For a non-tech operating company, the manual repetitive work (re-keying data between systems, manual scheduling and dispatch, chasing approvals, assembling reports by hand). For a tech product company, an AI or engineering stretch (a model or feature that needs senior help, a data pipeline, scaling an ML workflow, an AI capability they are clearly building toward). Specific to their business model. Do NOT cite revenue, employee counts, founding years, or ANY number unless it appears verbatim in the research.
 - angle: the BRIDGE from a specific, real detail about their business to the operational or engineering challenge where AI, automation, or engineering is the natural lever (i.e. where Jack could actually help). Anchor on something concrete and true about THEM (a process they run, their product, their scale, a recent move) that leads into where it gets manual, hard, or hard to scale. This is what makes the note RELEVANT to an AI engineering and automation consultant. NOT a generic founder/career fact, NOT just "they exist". Use only what the research supports.
-- connectNote: the short note attached to a LinkedIn connection request. Write it AS Jack himself, a sharp, busy UK guy saying hi to a peer whose business he finds genuinely interesting. NOT a marketer, NOT AI, NOT outreach software. Its only job is to get accepted; the pitch comes later. RULES:
-  * Structure it in two parts:
-    (1) Start with their FIRST NAME, then anchor on ONE specific, real thing about THEIR business from the research (a process they run, their product, how they are structured, their scale, a recent move) and turn it toward the OPERATIONAL or ENGINEERING challenge where it gets manual, hard, or hard to scale — the part where AI, automation, or engineering is the natural lever (use the angle / painHook). Frame it as genuine CURIOSITY about how they handle THAT specific thing ("curious how you handle...", "curious how you're approaching...", "always wondered how a team like yours keeps..."). The thing you are curious about MUST be something an AI engineering and automation consultant could genuinely help with — it is the bridge to the follow-up conversation, with NO pitch. Do NOT lead with their career, their founder origin story, or that they "wear multiple hats" — those are warm but do not connect to the work. Do NOT editorialise ("is interesting / remarkable / fascinating"). Stay specific to their business, never generic. Ask or muse; do NOT assert their internal process as fact. VARY your opening across notes. One to three sentences.
-    (2) Do NOT write the closing invitation inside connectNote; it goes in the separate closingInvite field below. End connectNote on the curiosity.
-  * LENGTH: connectNote must be 150 to 210 characters and MUST end on a COMPLETE sentence. Never trail off mid-thought or end on "and" / "with" / "the" / a dangling list. Better to say less and finish the sentence than to pack in detail and get cut.
-  * VOICE (most important): sound like a sharp real person talking to a peer over coffee, NOT a consultant, an analyst, or a strategy slide. Plain everyday words, contractions, natural spoken rhythm. A bit of empathy lands well ("I'd imagine...", "that's got to be...", "bet that..."). Describe their reality the way a normal person would say it OUT LOUD, not the way a report would write it. BANNED corporate/analyst jargon: "real time visibility", "operational coordination", "data orchestration", "throughput", "subsystems", "leverage", "streamline", "optimise", "optimize", "robust", "seamless", "scalable", "ecosystem", "drive efficiency", "manage the complexity of", "distributed assets", "operational efficiency", "the engineering coordination challenge". If a line sounds like it belongs in a McKinsey deck, rewrite it plainer. Example: not "how you maintain real time visibility into production data from distributed platform assets" but "how you keep a clean picture of what's happening across all those rigs".
-- closingInvite: ONE short, generic, warm line of about 6 to 10 words. Vary it. Keep it GENERIC, not topic-specific, so it never bloats the note. Examples: "Would love to compare notes sometime." / "Be keen to hear how you approach it." / "Would be good to swap notes." / "Keen to hear how you handle it." NEVER a pitch and never a stiff "interested in a quick chat?".
+- connectNote: the short note (UNDER 300 chars) on a LinkedIn connection request. Write it AS Jack: a sharp ex-operator with strong, slightly cynical opinions about AI hype. NOT a marketer, NOT polite-and-safe. Its job is to get a REPLY, not just an accept. THE TWO LAWS (non-negotiable):
+    (1) OPEN with a POSITION they could disagree with: a sharp claim, a cynical take, or a checkable bet about THEIR specific world (use the angle / painHook). NOT their first name, NOT a soft "curious how you handle" / "I'd imagine" / "always wondered". Make them want to push back or agree.
+    (2) CLOSE by doing ONE of: dare them to correct you ("Tell me I'm wrong", "Prove me wrong", "Tell me your X lives somewhere else"), attach a cost to their silence, or flatter their competence into a brag-reply. The note ENDS on this close and is fully self-contained.
+  * SHAPES (pick one; VARY across notes so they are not all the same): (a) blunt two sentences, no warmup; (b) demonstrated-refusal: name the AI thing you'd tell them NOT to buy and the unglamorous thing that actually pays; (c) a pointed question with a real bet behind it; (d) cynical-insider take on the AI hype in their space.
+  * CREDIBILITY: if Jack has real standing in their world (e.g. he is an ex-operator in their industry), use it ONCE, hard, as proof ("I ran X"), never as a signature line. Otherwise earn it through SPECIFICITY about their actual business (a named product, workflow, or move) so the note would not survive a company swap.
+  * VOICE: plain spoken English, a genuine point of view, a bit of edge, never boring, never a McKinsey line. End on a COMPLETE sentence.
+- closingInvite: return an EMPTY string "". The connectNote above already closes itself (on the dare/cost/flatter); do not add a separate invitation.
 - companyType: "tech_product" if they build and sell their own software, platform, or AI product (SaaS, fintech, proptech, healthtech, marketplace, data product); otherwise "non_tech_operating".
 - industry: a short lowercase sector label, e.g. "fintech", "insurance", "logistics", "proptech", "healthcare", "manufacturing", "professional services", "real estate", "construction".
 - hqLocation: their headquarters location (city and country or state) only if the research shows it; otherwise an empty string. Never guess.
   * Vary the wording and structure every time. Sound like a real person, never a template.
-  * HARD BANS (these read as AI/spam): NEVER use any dash or hyphen of ANY kind (em-dash, en-dash, or "-"); do not hyphenate words, rephrase to avoid hyphens entirely. No listing three or more things in a row (services, markets, disciplines, care types); pick ONE and go deep on it instead. ABSOLUTELY NO PITCH anywhere in the note or the invite. The topic is AI-relevant but you NEVER offer help: forbidden phrases include "senior AI engineering help", "without a full-time hire", "how we've helped", "I'd love to share how", "I've approached similar", "how I/we can help", "AI could tighten", and any mention of what Jack does or sells. The bridge is the topic, the offer waits for the next message. No invented numbers unless verbatim in the research. Use the word "genuinely" at most once in the whole note, ideally never. No flattery or editorialising about them or their story ("impressive", "remarkable", "fascinating", "striking", "interesting to see", "caught my eye", complimenting their career or company). No buzzwords.
+  * HARD BANS: NEVER use any dash or hyphen of ANY kind (em-dash, en-dash, "-"); rephrase to avoid them. No listing three or more things in a row. NO PITCH and no offering of help: forbidden phrases include "senior AI engineering help", "without a full-time hire", "how we've helped", "I'd love to share how", "how I/we can help", and any mention of what Jack sells. The note starts a conversation; the offer waits. BANNED CLOSES (never end the note with these, they are dead and boring): "would love to compare notes", "curious how you handle that", "is that your situation / am I off base", "would be great to connect", "be keen to hear", "thought it'd be good to connect". No invented numbers unless verbatim in the research. No FAKE flattery (do not generically compliment their company or career). A cynical take, a checkable bet, or flattering their genuine competence into a brag-reply is GOOD and encouraged. No corporate jargon ("real time visibility", "throughput", "leverage", "streamline", "optimise", "scalable", "seamless", "ecosystem", "operational efficiency").
 
 HARD RULES for connectNote and all fields:
 - Do NOT use generic flattery ("impressive", "compelling", "love your work", "caught my eye", "the science you apply").
@@ -202,32 +202,20 @@ ${personCtx || "(none found — do not invent any personal facts about this indi
     }
     return w;
   };
-  // Deterministically assemble note + closing invite, so a CTA is ALWAYS present
-  // exactly once at the end (the model gives them as separate fields; no fragile
-  // detection). Fall back to a stable invite if the model leaves the field empty.
-  const FALLBACK_INVITE = "Would love to compare notes sometime.";
-  const inviteRe = /(would (love|be (great|good)|enjoy)|be keen|keen to|happy to|look forward|love to (compare|hear|connect|swap)|compare notes|swap notes|hear your|trade (notes|ideas))/i;
-  let note = clean(out.connectNote);
-  // if the model tacked an invitation onto the note body, drop it so we don't
-  // double up when we append closingInvite
-  const sents = note.split(/(?<=[.!?])\s+/);
-  if (sents.length > 1 && inviteRe.test(sents[sents.length - 1])) {
-    sents.pop();
-    note = sents.join(" ").trim();
-  }
-  const inviteRaw = clean(out.closingInvite);
-  const invite = /[a-z]/i.test(inviteRaw) ? inviteRaw : FALLBACK_INVITE;
-  const body = trimAt(note, 299 - invite.length - 1);
-  let connectNote = `${/[.?!]$/.test(body) ? body : `${body}.`} ${invite}`;
-  // keep at most one "genuinely" — a cheap-model verbal tic that repeats across notes
+  // The note is self-contained now (it closes itself on a dare/cost/flatter), so
+  // we do NOT append a closing invite. If the cheap model still tacks a soft
+  // "would love to compare notes" onto the end, strip it (those are banned).
+  const softCloseRe = /\s*(would (love|be (great|good)|enjoy)|be keen|keen to|happy to|look forward|love to (compare|hear|connect|swap)|compare notes|swap notes|hope (we|to)|i'?d (love|be))\b[^.?!]*[.?!]?\s*$/i;
+  let note = clean(out.connectNote).replace(softCloseRe, "").trim();
   let seenGenuinely = false;
-  connectNote = connectNote.replace(/\bgenuinely\s+/gi, (m) => (seenGenuinely ? "" : ((seenGenuinely = true), m)));
+  note = note.replace(/\bgenuinely\s+/gi, (m) => (seenGenuinely ? "" : ((seenGenuinely = true), m)));
+  if (!/[.?!]$/.test(note)) note = `${note}.`;
   return {
     summary: clean(out.summary),
     painHook: clean(out.painHook),
     angle: clean(out.angle),
-    connectNote: trimAt(connectNote, 300),
-    closingInvite: invite,
+    connectNote: trimAt(note, 300),
+    closingInvite: "",
     companyType: out.companyType === "tech_product" ? "tech_product" : "non_tech_operating",
     industry: clean(out.industry).toLowerCase().slice(0, 40),
     hqLocation: clean(out.hqLocation).slice(0, 80),
