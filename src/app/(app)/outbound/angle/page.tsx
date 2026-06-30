@@ -36,7 +36,8 @@ export default async function AnglePage() {
     );
     counts = Object.fromEntries(rows.map((r) => [r.status, Number(r.n)]));
     next = await queryOne<OutreachRow>(
-      "SELECT * FROM outreach_research WHERE status = 'ready' ORDER BY created_at ASC LIMIT 1",
+      // warm leads (e.g. Stratasys) jump to the front, then oldest cold leads
+      "SELECT * FROM outreach_research WHERE status = 'ready' ORDER BY (source = 'warm') DESC, created_at ASC LIMIT 1",
     );
     worked = await query<OutreachRow>(
       "SELECT * FROM outreach_research WHERE status IN ('connect_sent','connected','replied','booked','won') ORDER BY COALESCE(sent_at, created_at) DESC LIMIT 30",
